@@ -1388,18 +1388,18 @@ function buildLobby(){let API;
   for(let i=1;i<=17;i++)b(stepM,A0+(i-1)*RUN,A0+i*RUN,i<=5?0:i*RZ-.45,i*RZ,-7.8,-5.6);// from the 6th step on F1 is a slab: the last B1 flight runs underneath (user U1)
   {const x0=A0+5*RUN,L=Math.hypot(A1-x0,(A1-x0)/RUN*RZ),th=Math.atan2(RZ,RUN),xm=(x0+A1)/2;const p=box(L,.25,2.2,coreM,X(xm),(xm-A0)/RUN*RZ+RZ-.6,-6.7);p.rotation.z=s*th;}// soffit under F1
   b(stepM,A1,29.8,18*RZ-.45,18*RZ,-11.9,-4.95);
-  for(let k=1;k<=17;k++){const t=(18+k)*RZ;b(stepM,A1-k*RUN,A1-(k-1)*RUN,t-.45,t,-11.9,-9.95);}
-  {const th=Math.atan2(17*RZ,A1-C1),L=Math.hypot(17*RZ,A1-C1);const p=box(L,.1,1.95,coreM,X((A1+C1)/2),18*RZ-.45+8.5*RZ-.07,-10.925);p.rotation.z=-s*th;}// soffit under F2
+  for(let k=1;k<=17;k++){const t=(18+k)*RZ;b(stepM,A1-k*RUN,A1-(k-1)*RUN,t-.45,t,-11.9,-9.15);}
+  {const th=Math.atan2(17*RZ,A1-C1),L=Math.hypot(17*RZ,A1-C1);const p=box(L,.1,2.75,coreM,X((A1+C1)/2),18*RZ-.45+8.5*RZ-.07,-10.525);p.rotation.z=-s*th;}// soffit under F2
   b(stepM,21.05,C1,SL1-.5,SL1,-11.9,-7.95);// top landing runs across the well end so both door leaves fold flat against its wall (IMG_1260)
-  b(coreM,C1,C1+.15,SL1-.5,SC,-9.8,-7.95);
+  b(coreM,C1,C1+.15,SL1-.5,SC,-9.0,-7.95);
   // black skirting stringers along the flight walls (IMG_1214)
   {const kM=P_(0x1a1a1a,{rough:.5}),L=Math.hypot(17*RUN,17*RZ),th=Math.atan2(17*RZ,17*RUN);[[-5.62,-5.6],[-7.82,-7.8]].forEach(([z0,z1])=>{const m=box(L,.12,z1-z0,kM,X(A0+17*RUN/2),8.5*RZ+.1,(z0+z1)/2);m.rotation.z=s*th;});}
-  tape(X(A0+.04),RZ+.004,-6.7,2.2,true);tape(X(21.1),SL1+.004,-10.925,1.9,true);tape(X(A1+.04),18*RZ+.004,-6.7,2.2,true);
+  tape(X(A0+.04),RZ+.004,-6.7,2.2,true);tape(X(21.1),SL1+.004,-10.525,2.7,true);tape(X(A1+.04),18*RZ+.004,-6.7,2.2,true);
   // walls: front (z -4.8), back (z -12.1), outer (x 30), the hollow well between the lanes with its grid windows, stair ceiling
   b(coreM,21.05,30,0,CTOP,-4.95,-4.8);b(coreM,21.05,30,-3,CTOP,-12.1,-11.9);b(coreM,29.8,30,0,CTOP,-12.1,-4.8);b(coreM,21.05,A0+5*RUN,0,SC,-5.6,-4.95);for(let i=6;i<=17;i++)b(coreM,A0+(i-1)*RUN,A0+i*RUN,i*RZ-.5,SC,-5.6,-4.95);
   wallZ(-7.95,-7.8,21.05,26,1.25,SC,[[22.6,24.6,2.2,5.2]]);b(coreM,21.05,23.4,0,1.25,-7.95,-7.8);for(let x=23.4;x<26-1e-6;x+=RUN){const y=Math.max(0,(x-A0)/RUN*RZ-.55);if(y<1.25)b(coreM,x,Math.min(26,x+RUN),y,1.25,-7.95,-7.8);}b(coreM,26,A1,2.2,SC,-7.95,-7.8);gridZ(-7.875,22.6,24.6,2.2,5.2,3,4);
-  wallZ(-9.95,-9.8,C1,A1,2.4,SC,[[23.2,25.2,5.9,8.1]]);b(coreM,21.05,C1,2.4,SL1-.5,-9.95,-9.8);gridZ(-9.875,23.2,25.2,5.9,8.1,3,3);
-  b(coreM,A1-.15,A1,18*RZ,SC,-9.8,-7.95);b(coreM,21.05,29.8,SC,SC+.12,-11.9,-4.95);
+  wallZ(-9.15,-9.0,C1,A1,2.4,SC,[[23.2,25.2,5.9,8.1]]);b(coreM,21.05,C1,2.4,SL1-.5,-9.15,-9.0);gridZ(-9.075,23.2,25.2,5.9,8.1,3,3);// flush with the side-face column (user 2026-10-30)
+  b(coreM,A1-.15,A1,18*RZ,SC,-9.0,-7.95);b(coreM,21.05,29.8,SC,SC+.12,-11.9,-4.95);
   // side face (x 20.85..21.05): 1F pillars around the up opening (z -7.85..-5.9) and the B1 opening (z -11.9..-9.95), the slab band, the 2F door
   b(coreM,20.85,21.05,0,SL0,-5.6,-4.8);b(coreM,20.85,21.05,0,SL0,-12.1,-11.9);
   b(coreM,20.85,21.05,0,1.3,-9.0,-7.8);b(coreM,20.85,21.05,4.9,SL0,-9.0,-7.8);b(coreM,20.85,21.05,1.3,4.9,-8.1,-7.8);b(coreM,20.85,21.05,1.3,4.9,-9.0,-8.8);// B1 opening widened to z -11.9..-9.0 (user T1)
@@ -1454,35 +1454,40 @@ function buildLobby(){let API;
   // to 2F): four flights of seven risers in three lanes, U-turn landings at the ends. F1 goes out along the back lane from the top landing,
   // F2 comes back in the middle lane (open up through the 1F well), F3 goes out again in the back lane under F1, F4 comes back in the front
   // lane straight into the hall (IMG_1232: tape at the foot, the hall doors ahead, a black grid window in the wall on the right)
-  const XL=23.4,XR=XL+6*RUN,XE=27.65,T=.2,Lb=[-11.9,-9.7],Lm=[-9.55,-7.35],Lf=[-7.2,-4.95],kM=P_(0x1a1a1a,{rough:.5});
+  const XL=23.4,XR=XL+6*RUN,XE=27.65,T=.2,Lb=[-11.9,-9.15],Lm=[-9.55,-7.35],Lf=[-7.2,-4.95],kM=P_(0x1a1a1a,{rough:.5});
   const yS=x=>(x-A0)/RUN*RZ-.56;// underside of the up-F1 soffit
   const polyZ=(z0,z1,pts,holes=[])=>{const sh=new THREE.Shape();pts.forEach(([x,y],i)=>i?sh.lineTo(X(x),y):sh.moveTo(X(x),y));
    holes.forEach(([h0,h1,v0,v1])=>{const p=new THREE.Path(),q0=Math.min(X(h0),X(h1)),q1=Math.max(X(h0),X(h1));p.moveTo(q0,v0);p.lineTo(q1,v0);p.lineTo(q1,v1);p.lineTo(q0,v1);p.lineTo(q0,v0);sh.holes.push(p);});
    const me=new THREE.Mesh(wuv(new THREE.ExtrudeGeometry(sh,{depth:z1-z0,bevelEnabled:false})),coreM);me.position.z=z0;me.receiveShadow=true;S.add(me);return me;};
-  // (user 2026-10-30: the descent has three parts, not four, answer S1 = B) on 1F you walk the back lane to the far end, turn into the
-  // middle lane and go down F1 (14 risers) back towards the lobby, F2 goes out again in the back lane under the 1F walkway, F3 comes back
-  // in the front lane straight into the hall. Nothing hangs over a flight lower than 2 m any more.
-  const XL1=22.6,XS=XL1+13*RUN;
-  b(stepM,21.05,XL1,-T,0,-11.9,-7.95);b(stepM,21.05,XL1,-.3,0,-7.95,-4.95);// top landing; 1F slab under the foot of the up stairs
-  b(stepM,XL1,XE,-T,0,...Lb);b(stepM,XS,XE,-T,0,-9.7,-7.35);// 1F walkway along the back lane and the far-end turn into F1
-  for(let j=1;j<=13;j++){const x0=XL1+(j-1)*RUN,y=-(14-j)*RZ;b(stepM,x0,x0+RUN,y-T,y,...Lm);}
-  {const L=Math.hypot(13*RUN,13*RZ),th=Math.atan2(13*RZ,13*RUN),sf=box(L,.08,2.2,coreM,X(XL1+6.5*RUN),-7.5*RZ-T-.12,-8.45);sf.rotation.z=s*th;}// F1 soffit
-  for(let m=1;m<=6;m++){const x0=XL+(m-1)*RUN,x1=XL+m*RUN,r0=XR-m*RUN,r1=XR-(m-1)*RUN;
-   b(stepM,x0,x1,B1Y,-(14+m)*RZ,...Lb);b(stepM,r0,r1,B1Y,-(21+m)*RZ,...Lf);
-   b(kM,r0,r1,-(21+m)*RZ,-(21+m)*RZ+.1,-4.97,-4.95);b(kM,r0,r1,-(21+m)*RZ,-(21+m)*RZ+.1,-7.2,-7.18);}// black skirting stepping down F4 (IMG_1232)
-  b(stepM,21.05,XL,-14*RZ-T,-14*RZ,...Lb);b(stepM,21.05,XL1,-14*RZ-T,-14*RZ,-9.7,-7.35);b(stepM,XR,XE,B1Y,-21*RZ,-11.9,-4.95);// the two turns
-  b(stepM,21.05,XL,B1Y-.02,B1Y,-11.9,-4.95);b(stepM,XL,XR,B1Y-.02,B1Y,...Lm);// B1 floor at the foot, running on under the second turn
-  b(coreM,XL1-.15,XL1,-T,1.0,-9.55,-7.95);// parapet on the top landing over F1
-  // the lane walls: between F1/F3 and F2 (its top following F1), between F2 and F4 with the grid window, downstands under the turns
-  polyZ(-9.7,-9.55,[[XL1,B1Y],[XR,B1Y],[XR,-T],[XS,-T],[XS,.95],[XL1,.95]]);
-  polyZ(-7.35,-7.2,[[XL,B1Y],[XR,B1Y],[XR,yS(XR)],[XL,yS(XL)]],[[XL+.2,XR-.15,-2.9,-.9]]);
-  {const y0=-2.9,y1=-.9,x0=XL+.2,x1=XR-.15;for(let i=0;i<=3;i++){const x=x0+(x1-x0)*i/3;b(frameD,x-.04,x+.04,y0,y1,-7.37,-7.18);}for(let j=0;j<=2;j++){const y=y0+(y1-y0)*j/2;b(frameD,x0,x1,y-.04,y+.04,-7.37,-7.18);}
-   const g=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0,y1-y0),paneM);g.position.set(X((x0+x1)/2),(y0+y1)/2,-7.275);S.add(g);}
-  b(coreM,21.05,XL,-14*RZ-T,0,-7.35,-7.2);polyZ(-7.35,-7.2,[[XR,-7*RZ-T],[XE,-7*RZ-T],[XE,18*RZ-.45],[A1,18*RZ-.45],[A1,yS(A1)],[XR,yS(XR)]]);
-  tape(X(XS-.04),.004,-8.45,2.2,true);tape(X(XL+.04),-14*RZ+.004,-10.8,2.2,true);tape(X(XR-.04),-21*RZ+.004,-6.075,2.25,true);tape(X(XL-.05),B1Y+.004,-6.075,2.25,true);
-  box(.9,.02,.3,panelM,X(22.2),-14*RZ-T-.012,-9.6);
+  // (user 2026-10-30, IMG_1141-1143) the descent has three flights turning right round a hollow core with grid windows: F1 starts right at
+  // the lobby edge and runs out along the back lane (13 risers), a corner landing, F2 crosses at the far end towards the front (8 risers),
+  // a corner landing, F3 comes back along the front lane (7 risers) straight into the hall. Speckled terrazzo, black skirting, yellow tape.
+  const X0=21.6,XB=X0+12*RUN,XM=25.45,ZF=-9.15+7*RUN;
+  b(stepM,21.05,X0,-T,0,...Lb);b(stepM,21.05,XM,-T,0,-9.15,-7.95);b(stepM,21.05,23.4,-.3,0,-7.95,-4.95);// 1F edge, the well cover, the slab under the foot of the up stairs
+  const rsM=P_(0x8f8a82,{rough:.7});// riser faces a shade darker so each step reads, as in the photos
+  const bandX=(x0,x1,y0,y1,z)=>{const L=Math.hypot(x1-x0,y1-y0),m=box(L,.12,.02,kM,X((x0+x1)/2),(y0+y1)/2+.06,z);m.rotation.z=Math.atan2(y1-y0,s*(x1-x0));};
+  const bandZ=(z0,z1,y0,y1,x)=>{const L=Math.hypot(z1-z0,y1-y0),m=box(.02,.12,L,kM,X(x),(y0+y1)/2+.06,(z0+z1)/2);m.rotation.x=Math.atan2(y0-y1,z1-z0);};
+  for(let k=1;k<=12;k++){const x0=X0+(k-1)*RUN,y=-k*RZ;b(stepM,x0,x0+RUN,B1Y,y,...Lb);b(rsM,x0,x0+.012,y,y+RZ,...Lb);}
+  bandX(X0,XB,-.5*RZ,-12.5*RZ,-11.89);bandX(X0,XB,-.5*RZ,-12.5*RZ,-9.16);// black skirting along F1 (IMG_1141)
+  b(stepM,XB,XE,B1Y,-13*RZ,-11.9,-9.15);// back corner landing
+  for(let k=1;k<=7;k++){const z0=-9.15+(k-1)*RUN,y=-(13+k)*RZ;b(stepM,XM,XE,B1Y,y,z0,z0+RUN);b(rsM,XM,XE,y,y+RZ,z0,z0+.012);}
+  bandZ(-9.15,ZF,-13.5*RZ,-20.5*RZ,XE-.01);bandZ(-9.15,ZF,-13.5*RZ,-20.5*RZ,XM+.01);
+  b(stepM,XM,XE,B1Y,-21*RZ,ZF,-4.95);// front corner landing
+  for(let m=1;m<=6;m++){const r0=XM-m*RUN,r1=XM-(m-1)*RUN,y=-(21+m)*RZ;b(stepM,r0,r1,B1Y,y,...Lf);b(rsM,r1-.012,r1,y,y+RZ,...Lf);}
+  bandX(XM,XM-6*RUN,-21.5*RZ,-27.5*RZ,-4.96);bandX(XM,XM-6*RUN,-21.5*RZ,-27.5*RZ,-7.19);// black skirting along F3 (IMG_1143)
+  b(stepM,21.05,XM-6*RUN,B1Y-.02,B1Y,...Lf);// B1 floor at the foot
+  // the hollow core between F1 and F3: walls with black grid windows (seen on the right going down), a parapet along F1 on 1F
+  polyZ(-9.15,-9.0,[[21.05,B1Y],[XM,B1Y],[XM,1.0],[21.05,1.0]],[[22.3,24.5,-2.7,-.6]]);
+  polyZ(-7.35,-7.2,[[21.05,B1Y],[XM,B1Y],[XM,yS(XM)],[22.98,0],[21.05,0]],[[22.6,24.8,-3.3,-1.2]]);
+  b(coreM,XM-.15,XM,B1Y,1.0,-9.0,-7.35);
+  const grid=(z,x0,x1,y0,y1,nc,nr)=>{for(let i=0;i<=nc;i++){const x=x0+(x1-x0)*i/nc;b(frameD,x-.04,x+.04,y0,y1,z-.11,z+.11);}for(let j=0;j<=nr;j++){const y=y0+(y1-y0)*j/nr;b(frameD,x0,x1,y-.04,y+.04,z-.11,z+.11);}
+   const g=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0,y1-y0),paneM);g.position.set(X((x0+x1)/2),(y0+y1)/2,z);S.add(g);};
+  grid(-9.075,22.3,24.5,-2.7,-.6,3,3);grid(-7.275,22.6,24.8,-3.3,-1.2,3,3);
+  polyZ(-7.35,-7.2,[[XM,0],[XE,0],[XE,18*RZ-.45],[A1,18*RZ-.45],[A1,yS(A1)],[XM,yS(XM)]]);// above the far end: the up stair side
+  tape(X(X0+.04),.004,-10.525,2.75,true);tape(X(XB-.04),-12*RZ+.004,-10.525,2.75,true);tape(X((XM+XE)/2),-13*RZ+.004,-9.15+.04,XE-XM,false);
+  tape(X((XM+XE)/2),-20*RZ+.004,ZF-.04,XE-XM,false);tape(X(XM-.04),-21*RZ+.004,-6.075,2.25,true);tape(X(XM-6*RUN-.05),B1Y+.004,-6.075,2.25,true);
   // core walls below the lobby floor: the side face open to the hall below the second turn and the 1F slab, front, outer, back, the end wall under L1
-  b(coreM,20.85,21.05,B1Y,0,-12.1,-11.9);b(coreM,20.85,21.05,-14*RZ-T,0,-11.9,-7.2);b(coreM,20.85,21.05,B1Y+2.4,0,-7.2,-4.95);b(coreM,20.85,21.05,B1Y,0,-4.95,-4.5);
+  b(coreM,20.85,21.05,B1Y,0,-12.1,-11.9);b(coreM,20.85,21.05,B1Y,0,-11.9,-7.2);b(coreM,20.85,21.05,B1Y+2.4,0,-7.2,-4.95);b(coreM,20.85,21.05,B1Y,0,-4.95,-4.5);
   b(coreM,21.05,30,B1Y,0,-4.95,-4.8);b(coreM,29.8,30,B1Y,0,-12.1,-4.8);b(coreM,21.05,30,B1Y,-3,-12.1,-11.9);
   b(coreM,XE,XE+.15,B1Y,18*RZ-.45,-11.9,-4.95);
  });
@@ -1532,7 +1537,7 @@ function buildLobby(){let API;
  flat(22,11.2,cafeFl,0,Y0+.004,-12.9);
  [-1,1].forEach(s=>flat(4.45,7.3,grnM,s*18.825,Y0+.004,-8.45));
  flat(7.3,4,terrM,-23.25,Y0+.002,-20.5);flat(1.6,7.3,terrM,-13.3,Y0+.002,-22.35);flat(3.2,3.3,terrM,14.6,Y0+.002,-20.35);
- [-1,1].forEach(s=>{flat(10.05,15,ceilM(10.05,15),s*16.025,YC,-11,true);flat(11.95,6.4,ceilM(11.95,6.4),s*27.025,YC,-15.3,true);flat(11.95,1.3,ceilM(11.95,1.3),s*27.025,YC,-4.15,true);});// not over the stair cores (it hung at head height over the B1 flights)flat(22,3.8,ceilM(22,3.8),0,YC,-5.4,true);flat(7.3,4,ceilM(7.3,4),-23.25,YC,-20.5,true);flat(1.6,7.3,ceilM(1.6,7.3),-13.3,YC,-22.35,true);
+ [-1,1].forEach(s=>{flat(10.05,15,ceilM(10.05,15),s*16.025,YC,-11,true);flat(11.95,6.4,ceilM(11.95,6.4),s*27.025,YC,-15.3,true);flat(11.95,1.3,ceilM(11.95,1.3),s*27.025,YC,-4.15,true);});/* not over the stair cores (it hung at head height over the B1 flights) */flat(22,3.8,ceilM(22,3.8),0,YC,-5.4,true);flat(7.3,4,ceilM(7.3,4),-23.25,YC,-20.5,true);flat(1.6,7.3,ceilM(1.6,7.3),-13.3,YC,-22.35,true);
  lights(-15,15,-5.4,-5.4,2.5,1,YC-.01);lights(-31.2,-12.0,-16.55,-16.55,2.4,1,YC-.01);lights(12.0,31.2,-16.55,-16.55,2.4,1,YC-.01);
  [-1,1].forEach(s=>{for(let z=-13.4;z<=-8;z+=2.6){const p=box(.3,.02,1.2,panelM,s*13.8,YC-.015,z);}const p=box(1.2,.02,.3,panelM,s*18.8,YC-.015,-8.4);});
  {const p=box(.3,.02,1.2,panelM,-23.25,YC-.015,-20.5);}
@@ -1564,7 +1569,7 @@ function buildLobby(){let API;
   [[-14.4,D0],[D1,-3.5]].forEach(([z0,z1])=>{b(bWall,16.4,16.5,Y0,YC,z0,z1);b(blkS,16.37,16.4,Y0,Y0+.1,z0,z1);});b(bWall,16.4,16.5,Y0+2.35,YC,D0,D1);
   [[-12.1,D0],[D1,-4.8]].forEach(([z0,z1])=>{b(bCream,16.5,16.6,Y0,YC,z0,z1);b(blkS,16.6,16.63,Y0,Y0+.1,z0,z1);});b(bCream,16.5,16.6,Y0+2.35,YC,D0,D1);b(bWall,16.5,16.6,Y0,YC,-14.4,-12.1);b(bWall,16.5,16.6,Y0,YC,-4.8,-3.5);
   b(bCream,16.6,21.05,Y0,YC,-12.3,-12.1);b(bCream,16.6,21.05,Y0,YC,-4.8,-4.6);b(blkS,16.6,20.85,Y0,Y0+.1,-12.1,-12.07);b(blkS,16.6,20.85,Y0,Y0+.1,-4.83,-4.8);
-  b(bCream,20.84,20.85,Y0,YC,-12.1,-11.9);b(bCream,20.84,20.85,-14*RZ-.2,YC,-11.9,-7.2);b(bCream,20.84,20.85,Y0+2.42,YC,-7.2,-4.9);b(bCream,20.84,20.85,Y0,YC,-4.9,-4.8);
+  b(bCream,20.84,20.85,Y0,YC,-12.1,-11.9);b(bCream,20.84,20.85,Y0,YC,-11.9,-7.2);b(bCream,20.84,20.85,Y0+2.42,YC,-7.2,-4.9);b(bCream,20.84,20.85,Y0,YC,-4.9,-4.8);
   // door: white frame, two white leaves swung right round and lying on the hall wall, overhead closers, round knobs, green stickers
   const dW=bE(0xeeebe3,{rough:.5,ei:.35}),clM=P_(0x9a9da2,{rough:.4,metal:.5});
   b(dW,16.38,16.64,Y0+2.27,Y0+2.37,D0,D1);b(dW,16.38,16.64,Y0,Y0+2.37,D0,D0+.07);b(dW,16.38,16.64,Y0,Y0+2.37,D1-.07,D1);b(blkS,16.4,16.6,Y0,Y0+.012,D0,D1);
@@ -3278,10 +3283,10 @@ function buildLobby(){let API;
  function f1Route(a,b){{const r=navR(0,a,b);if(r)return r;}const out=[];let c=a;if(beh(a)){const s=Math.sign(a.x);out.push(V(s*19.8,EY,Math.min(a.z,-12.6)),V(s*19.8,EY,-3.2));c=out[1];}const bE=beh(b)?V(Math.sign(b.x)*19.8,EY,-3.2):b;out.push(...detour(c,bE));if(beh(b))out.push(bE,V(Math.sign(b.x)*19.8,EY,Math.min(b.z,-12.6)));return out;}
  const leg=p=>{const s=Math.sign(p.x)||1,ax=Math.abs(p.x);if(!(ax>18.9&&p.z>-12.2))return[];if(p.z>-4.8)return[V(s*20,EY2,-3.6),V(s*20,EY2,-12.6)];if(ax<21)return[V(s*20,EY2,-12.6)];return[V(p.x,EY2,-12.6)];};
  function mzRoute(a,b){{const r=navR(1,a,b);if(r)return r;}if(Math.sign(a.x)===Math.sign(b.x)&&Math.abs(a.x)>18.9&&Math.abs(b.x)>18.9&&a.z>-4.8&&b.z>-4.8)return[];return[...leg(a),...leg(b).reverse()];}
- const DNR=s=>{const XL=23.4,XR=XL+6*RUN,a=26.4,c=22.2,zb=-10.8,zm=-8.45,zf=-6.1;// lobby -> 1F walkway -> F1 -> turn -> F2 -> turn -> F3 -> hall
-  const XL1=22.6,XS=XL1+13*RUN,e=26.95;// (user S1 = B) along the 1F back lane to the far end, F1 down the middle lane, F2 back lane, F3 front lane
-  return[V(s*19.6,EY,-10.6),V(s*21.2,EY,-10.6),V(s*e,EY,zb),V(s*e,EY,zm),V(s*XS,EY,zm),V(s*XL1,EY-14*RZ,zm),V(s*c,EY-14*RZ,zm),V(s*c,EY-14*RZ,zb),V(s*XL,EY-14*RZ,zb),
-   V(s*XR,EY-21*RZ,zb),V(s*a,EY-21*RZ,zb),V(s*a,EY-21*RZ,zf),V(s*XR,EY-21*RZ,zf),V(s*XL,EYB,zf),V(s*21.6,EYB,zf),V(s*20.2,EYB,-6.6),V(s*18.6,EYB,-9.5),V(s*16.6,EYB,-9.6),V(s*14.6,EYB,-9.6)];};
+ const DNR=s=>{const zb=-10.8,zf=-6.1;// lobby -> F1 -> landing -> F2 -> landing -> F3 -> hall
+  const X0=21.6,XB=X0+12*RUN,XM=25.45,ZF=-9.15+7*RUN,o=26.55;// (IMG_1141-1143) F1 out along the back lane, F2 across the far end, F3 back along the front lane
+  return[V(s*19.6,EY,-10.6),V(s*21.2,EY,zb),V(s*X0,EY,zb),V(s*XB,EY-12*RZ,zb),V(s*o,EY-13*RZ,zb),V(s*o,EY-13*RZ,-9.15),V(s*o,EY-20*RZ,ZF),V(s*o,EY-21*RZ,zf),V(s*XM,EY-21*RZ,zf),V(s*(XM-6*RUN-.1),EYB,zf),
+   V(s*21.6,EYB,zf),V(s*20.2,EYB,-6.6),V(s*18.6,EYB,-9.5),V(s*16.6,EYB,-9.6),V(s*14.6,EYB,-9.6)];};
  const inVest=p=>Math.abs(p.x)>16.4&&p.z<-4.8&&p.z>-12.2;
  function b1Route(a,b){{const r=navR(2,a,b);if(r)return r;}const out=[],sa=Math.sign(a.x)||1,sb=Math.sign(b.x)||1,same=inVest(a)&&inVest(b)&&sa===sb;if(inVest(a)&&!same)out.push(V(sa*16.6,EYB,-9.6),V(sa*14.6,EYB,-9.6));if(inVest(b)&&!same)out.push(V(sb*14.6,EYB,-9.6),V(sb*16.6,EYB,-9.6));return out;}
  const pickS=(a,b)=>{const x=Math.abs(a.x)>2?a.x:(Math.abs(b.x)>2?b.x:1);return x<0?-1:1;};
@@ -3305,7 +3310,7 @@ function buildLobby(){let API;
  // tour walking speed in m/s; a spot can ask for a brisker walk to reach it (sp), e.g. the long cross-lobby walks (user 2026-10-30)
  let tourSp=2.6;
  // '따라 걷기' (user 2026-10-30): an ordinary walking pace, the same 1.25 m/s the route card uses for its time, with a short start and stop
- const WFV=1.875,wfDur=L=>Math.max(1500,L/WFV*1000+700);
+ const WFV=2.1,wfDur=L=>Math.max(1500,L/WFV*1000+700);
  const wfProf=(t,T)=>{const r=Math.min(.7,T/4)/T,v=1/(1-r);return t<r?v*t*t/(2*r):t>1-r?1-v*(1-t)*(1-t)/(2*r):v*(t-r/2);};
  let pend=false;const hChase={v:null,t:0};// a door is opening before the walk through it: still busy
  const roomOf=v=>Math.abs(v[0])>30.6&&v[1]>0?{s:Math.sign(v[0]),f:v[1]>4?1:0}:null;
@@ -3332,10 +3337,9 @@ function buildLobby(){let API;
  const outH=(x,z)=>{if(!(z>24.5&&Math.abs(x)<14))return 0;const q=z-9.5;return (q<20.2?5-(q-15)/5.2*2.5:q<23.2?2.5:Math.max(0,2.5-(q-23.2)/5.2*2.5))-5.1;};
  const B1S=(x,z,g)=>{const ax=Math.abs(x);if(!(ax>21.05&&ax<27.65&&z>-11.9&&z<-4.95))return false;return !(g>-.6&&z>-7.95);};// the B1 stair (below 1F; the up stair keeps the front strip at 1F)
  const dnH=(x,z,g)=>{const ax=Math.abs(x),XL=23.4,XR=XL+6*RUN,ln=z<-9.625?0:z<-7.275?1:2,c=[];// lanes back / middle / front; stacked levels, the one nearest g
-  const XL1=22.6,XS=XL1+13*RUN,f1=()=>-(14-Math.min(13,Math.max(1,Math.ceil((ax-XL1)/RUN))));// F1 in the middle lane (user S1 = B)
-  if(ax<XL1){if(ln<2)c.push(0,-14);else c.push(-28);}else if(ax<XL){c.push(...(ln===0?[0,-14]:ln===1?[f1()]:[-28]));}
-  else if(ax<XR){const m=Math.min(6,Math.max(1,Math.ceil((ax-XL)/RUN))),n=Math.min(6,Math.max(1,Math.ceil((XR-ax)/RUN)));c.push(...(ln===0?[0,-14-m]:ln===1?[f1()]:[-21-n]));}
-  else if(ax<XS){c.push(...(ln===0?[0,-21]:ln===1?[f1(),-21]:[-21]));}else{if(ln<2)c.push(0);c.push(-21);}
+  const X0=21.6,XB=X0+12*RUN,XM=25.45,ZF=-9.15+7*RUN,cl=(v,n)=>Math.min(n,Math.max(1,Math.ceil(v/RUN)));// three flights round the core (IMG_1141-1143)
+  if(ax>=XM)c.push(z<-9.15?-13:z<ZF?-(13+cl(z+9.15,7)):-21);else if(z<-9.15)c.push(ax<X0?0:ax<XB?-cl(ax-X0,12):-13);
+  else if(z>-7.35)c.push(ax<XM-6*RUN?-28:-(21+cl(XM-ax,6)));else c.push(0);
   let h=c[0]*RZ;c.forEach(k=>{if(Math.abs(k*RZ-g)<Math.abs(h-g))h=k*RZ;});return h;};
  const stepZ=ax=>ax<9.1?-7.3:ax<10?-7.85:-8.4;// café front glass line incl. the stepped corners
  const inB1=(x,z)=>{const ax=Math.abs(x);
@@ -3355,14 +3359,13 @@ function buildLobby(){let API;
  const b1G=(x,z)=>{if(x>9.25&&x<10.88&&z<-15.45&&z>-18.3)return B1Y+Math.min(10,Math.max(1,Math.ceil((-15.45-z)/.285)))*.19;if(x>6.95&&x<10.88&&z<-15.6&&z>-18.45)return B1Y+1.9;return B1Y;};// café stair + deck
  const lbFree={ground(x,z,g){if(g<1.3&&B1S(x,z,g))return dnH(x,z,g);if(z>20.3)return outH(x,z);if(inSt(x,z))return stH(x,z,g);if(g<-2)return b1G(x,z);if(g>4&&(inSlab(x,z)||z<-19.4&&z>-28.6&&Math.abs(x)>17&&Math.abs(x)<30||(Math.abs(x)>27&&Math.abs(x)<34&&z>-3.4&&z<-.5||x>31&&x<62&&z>-11&&z<13)))return SL1;return 0;},
   blocked(x,z,g,px,pz){const ax=Math.abs(x),pa=Math.abs(px),was=inSt(px,pz),now=inSt(x,z);if(g<1.3){const iS=B1S(x,z,g),wS=B1S(px,pz,g);
-    if(iS&&!wS){if(pa>21.1)return true;if(g>-.6)return !(z>-11.75&&z<-9.15);if(g<-3)return !(z>-11.75&&z<-5.1);return true;}
-    if(wS&&!iS){if(ax>=21.05)return true;if(g>-.6)return !(z>-11.75&&z<-9.15);if(g<-3)return !(z>-11.75&&z<-5.1);return true;}
-    if(iS){if(ax>27.5||z<-11.75||z>-5.1)return true;if(Math.abs(dnH(x,z,g)-g)>.35)return true;const w1=Math.abs(z+9.625)<.23,w2=Math.abs(z+7.275)<.23;
-     if(ax>23.25&&ax<25.23&&(w1||w2))return true;if(w1&&((ax>22.45&&ax<23.3)||(g>-.6&&ax<26.3)))return true;if(w2&&((g>-3&&ax<23.55)||(g>-2&&ax>24.93)))return true;// lane walls, downstands under the turns
-     if(g>-.6&&(z>-8.1||(z>-9.8&&ax>22.45&&ax<25.3)))return true;if(g>-3&&g<-.6&&ax<21.2)return true;return false;}
+    if(iS&&!wS){if(pa>21.1)return true;if(g>-.6)return !(z>-11.75&&z<-9.31);if(g<-3)return !(z>-11.75&&z<-5.1);return true;}
+    if(wS&&!iS){if(ax>=21.05)return true;if(g>-.6)return !(z>-11.75&&z<-9.31);if(g<-3)return !(z>-11.75&&z<-5.1);return true;}
+    if(iS){if(ax>27.5||z<-11.75||z>-5.1)return true;if(Math.abs(dnH(x,z,g)-g)>.35)return true;
+     if(ax<25.62&&z>-9.31&&z<-7.18)return true;if(g>-.6&&z>-9.31)return true;if(g>-3&&g<-.6&&ax<21.2)return true;return false;}
     if(g<-2&&z<20.3&&pz<20.3){if(!inB1(x,z))return true;return Math.abs(b1G(x,z)-b1G(px,pz))>.3;}}
    if(now){if(!was){if(pa>21.4)return true;return g<1.2?!opn(z):g>4.4?!dor(z):true;}
-    if(ax>29.55||z<-11.6||z>(ax<A1?-5.85:-5.25))return true;if(g>4.4&&ax<C1+.1){if(z>-8.2)return true;}else if(ax<A1-.2&&z<-7.55&&z>-10.2)return true;if(ax<21.3&&!(g<1.2?opn(z):g>4.4?dor(z):false))return true;return false;}
+    if(ax>29.55||z<-11.6||z>(ax<A1?-5.85:-5.25))return true;if(g>4.4&&ax<C1+.1){if(z>-8.2)return true;}else if(ax<A1-.2&&z<-7.55&&z>-9.35)return true;if(ax<21.3&&!(g<1.2?opn(z):g>4.4?dor(z):false))return true;return false;}
    if(was){if(pa>21.4)return true;if(!(g<1.2?opn(z):g>4.4?dor(z):false))return true;}
    if(g>4&&x>31.08&&x<61.8&&z>-10.8&&z<12.8&&px>31.08)return false;// inside 제2열람실: the nav grid blocks walls and furniture
    if(g>4){if(ax>27.45&&z>-3.4&&z<-.5){if(ax<28.85)return !((z>-3.1&&z<-2.45)||(z>-2.15&&z<-1.5));if(ax<30.05)return !(z>-3.25&&z<-.55);if(ax<31)return !(z>-3.3&&z<-1.3);return !(ax<33.2&&z>-3.2&&z<-1.4);}
