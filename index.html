@@ -16,7 +16,7 @@ body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:'Gowu
 #panel{position:relative;width:100%;height:100%;overflow:hidden;touch-action:none;background:var(--bg)}
 #panel canvas{display:block}
 #bubble{position:absolute;right:16px;top:16px;max-width:min(520px,calc(100% - 32px));z-index:3;background:rgba(255,250,240,.84);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(138,106,74,.22);border-radius:12px;box-shadow:0 6px 22px rgba(40,28,16,.12);padding:10px 16px;font-size:clamp(14px,1.45vw,17px);line-height:1.65;letter-spacing:-.005em;transition:opacity .5s,transform .5s}
-#fade{position:absolute;inset:0;z-index:4;background:var(--paper);opacity:0;pointer-events:none;transition:opacity .5s}
+#fade{position:absolute;inset:0;z-index:4;background:var(--paper);opacity:0;pointer-events:none;transition:opacity .38s}
 #fade{display:flex;align-items:center;justify-content:center;background:radial-gradient(120% 90% at 50% 45%,#fffaf0 0%,#f3e7d3 100%)}#fade .wl{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;transition:opacity .35s;color:#8a6a4a;font:700 14px/1.3 'Noto Sans KR','Apple SD Gothic Neo',sans-serif;letter-spacing:-.01em}#fade.busy .wl{opacity:1}#fade .sp{width:34px;height:34px;border-radius:50%;border:3px solid rgba(138,106,74,.18);border-top-color:#8a6a4a;animation:fsp .9s linear infinite;will-change:transform}#fade .pb{width:132px;height:3px;border-radius:2px;background:rgba(138,106,74,.16);overflow:hidden}#fade .pb i{display:block;height:100%;width:0;background:#8a6a4a;transition:width .2s}@keyframes fsp{to{transform:rotate(360deg)}}
 #bar{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;flex-direction:column;gap:10px;align-items:center;padding:12px 16px 16px}
 .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
@@ -342,8 +342,9 @@ function makeSky(){const u={zen:{value:lin(0x3d7cc9)},hor:{value:lin(0xcfe0ee)},
 const PMREM=new THREE.PMREMGenerator(R);
 function envFromSky(u){const s=new THREE.Scene(),sk=makeSky();Object.keys(u).forEach(k=>{if(sk.u[k].value.copy)sk.u[k].value.copy(u[k].value);else sk.u[k].value=u[k].value;});sk.u.stars.value=0;sk.u.sunS.value=0;sk.mesh.scale.setScalar(50);s.add(sk.mesh);const rt=PMREM.fromScene(s,.02,.1,200);return rt.texture;}
 // sun with a shadow frustum that follows what the camera looks at (snapped to texels so shadows do not shimmer)
-function makeSun(S,size=2048){const L=new THREE.DirectionalLight(0xffffff,3);L.castShadow=true;L.shadow.mapSize.set(size,size);L.shadow.bias=-.0004;L.shadow.normalBias=.04;const c=L.shadow.camera;c.near=1;c.far=700;S.add(L);S.add(L.target);
- L.userData.dir=new THREE.Vector3(0,1,0);L.userData.fit=(cx,cz,half)=>{half=Math.max(20,Math.min(320,half));const tx=half*2/size;cx=Math.round(cx/tx)*tx;cz=Math.round(cz/tx)*tx;
+function makeSun(S,size=2048){const L=new THREE.DirectionalLight(0xffffff,3);L.castShadow=true;L.shadow.mapSize.set(size,size);L.shadow.autoUpdate=false;L.shadow.needsUpdate=true;let fk='',fn=0;L.shadow.bias=-.0004;L.shadow.normalBias=.04;const c=L.shadow.camera;c.near=1;c.far=700;S.add(L);S.add(L.target);
+ L.userData.dir=new THREE.Vector3(0,1,0);L.userData.fit=(cx,cz,half)=>{half=Math.ceil(Math.max(20,Math.min(320,half))/5)*5;const tx=half*2/size,st=tx*Math.max(1,Math.round(6/tx));cx=Math.round(cx/st)*st;cz=Math.round(cz/st)*st;
+  {const d=L.userData.dir,k=cx.toFixed(2)+','+cz.toFixed(2)+','+half+','+d.x.toFixed(4)+','+d.y.toFixed(4)+','+d.z.toFixed(4);if(k===fk&&L.shadow.map&&++fn<40)return;fk=k;fn=0;L.shadow.needsUpdate=true;}/* static scene: the shadow is redrawn only when its frustum steps or the sun moves */
   if(c.right!==half){c.left=-half;c.right=half;c.top=half;c.bottom=-half;c.updateProjectionMatrix();}L.target.position.set(cx,0,cz);L.position.copy(L.userData.dir).multiplyScalar(350).add(L.target.position);L.target.updateMatrixWorld();};return L;}
 
 // world-space UVs (metres) by dominant normal axis, so one tiled texture fits boxes and cylinders of any size
@@ -633,7 +634,7 @@ vec3 aged(vec3 c){vec3 p=vWP;float side=1.-abs(vWN.y);float u=p.x*abs(vWN.z)+p.z
   const hg=wuv(new THREE.ExtrudeGeometry(sh,{depth:.85,bevelEnabled:false,curveSegments:40}).rotateX(Math.PI/2).translate(0,.85,108.6));const hm=new THREE.Mesh(hg,hedgeM);S.add(hm);cast(hm);}
  // clipped boxwood band around the pond with a granite kerb on the walkway side (IMG_0835, 0855)
  [-1,1].forEach(sx=>{box(10.6,.85,1.2,hedgeM,sx*12.4,.43,108.9);box(10.6,.18,.25,graniteD,sx*12.4,.09,108.15);box(1.2,.85,21.4,hedgeM,sx*17.1,.43,119.2);box(.25,.18,21.8,graniteD,sx*17.85,.09,119.2);});
- const WLV=.31,rt=new THREE.WebGLRenderTarget(1024,512,{encoding:THREE.sRGBEncoding});rt.texture.generateMipmaps=false;const mCam=new THREE.PerspectiveCamera(),texMat=new THREE.Matrix4(),clipP=new THREE.Plane(new THREE.Vector3(0,1,0),-WLV),tmpV=new THREE.Vector3();
+ const WLV=.31,rt=new THREE.WebGLRenderTarget(1024,512,{encoding:THREE.sRGBEncoding});rt.texture.generateMipmaps=false;LOWQ_FN.push(()=>rt.setSize(512,256));const mCam=new THREE.PerspectiveCamera(),texMat=new THREE.Matrix4(),clipP=new THREE.Plane(new THREE.Vector3(0,1,0),-WLV),tmpV=new THREE.Vector3();
  const reflMat=new THREE.ShaderMaterial({uniforms:{tex:{value:rt.texture},tm:{value:texMat},col:{value:lin(0x5f9fbf)},deep:{value:lin(0x3b7fa8)},mixv:{value:.28},time:{value:0},rip:{value:.6},cam:{value:new THREE.Vector3()}},
   vertexShader:'uniform mat4 tm;varying vec4 vUv;varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;vUv=tm*w;gl_Position=projectionMatrix*viewMatrix*w;}',
   fragmentShader:'uniform sampler2D tex;uniform vec3 col,deep,cam;uniform float mixv,time,rip;varying vec4 vUv;varying vec3 vW;\n'+
@@ -1256,6 +1257,7 @@ function buildLobby(){let API;
  // the real plaza scene is rendered into a cube map from the matching spot (lobby z = plaza z + 9.5, lobby y = plaza y - 5.1):
  // inside, the doors and windows show it; on the doorstep before going in, it is the whole view.
  const outRT=new THREE.WebGLCubeRenderTarget(1024,{format:THREE.RGBAFormat,generateMipmaps:false,minFilter:THREE.LinearFilter});outRT.texture.encoding=THREE.sRGBEncoding;const outCam=new THREE.CubeCamera(.1,2400,outRT);
+ const outRTs={in:outRT,door:new THREE.WebGLCubeRenderTarget(1024,{format:THREE.RGBAFormat,generateMipmaps:false,minFilter:THREE.LinearFilter})};outRTs.door.texture.encoding=THREE.sRGBEncoding;const outKey={in:null,door:null};const outKeyNow=()=>String(typeof MODE!=='undefined'?MODE:0);
  const bgSh={vertexShader:'varying vec3 vD;void main(){vec4 w=modelMatrix*vec4(position,1.);vD=w.xyz-cameraPosition;gl_Position=projectionMatrix*viewMatrix*w;}',fragmentShader:'uniform samplerCube cube;varying vec3 vD;void main(){gl_FragColor=vec4(textureCube(cube,normalize(vD)).rgb,1.);}'};
  const outBg=new THREE.Mesh(new THREE.SphereGeometry(600,48,24),new THREE.ShaderMaterial(Object.assign({uniforms:{cube:{value:outRT.texture}},side:THREE.BackSide,depthWrite:false},bgSh)));outBg.renderOrder=-10;outBg.frustumCulled=false;outBg.visible=false;outBg.layers.enable(1);outBg.userData.noBake=true;S.add(outBg);
  // ---- materials (IMG_0465/0466/0467)
@@ -1280,13 +1282,13 @@ function buildLobby(){let API;
   const hc=cnv(256),hg=hc.getContext('2d');hg.fillStyle='#fff';hg.fillRect(0,0,256,256);hg.fillStyle='#999';for(let i=0;i<=T;i++){hg.fillRect(i*64-.5,0,1,256);hg.fillRect(0,i*64-.5,256,1);}
   return{map:tex(c),normal:nrmFrom(hc,256,256,1)};});
  const floorM=pbr({set:floorSet,rx:1/6,ry:1/6,rough:.12,ns:.3,env:1});// 1.5 m tiles
- const RT=new THREE.WebGLRenderTarget(768,384,{type:THREE.HalfFloatType});const lastV=new THREE.Matrix4();let rfN=0;RT.texture.generateMipmaps=false;const rMat=new THREE.Matrix4(),rCam=new THREE.PerspectiveCamera(),clipP=new THREE.Plane(new THREE.Vector3(0,1,0),-.001),tv=new THREE.Vector3();
+ const RT=new THREE.WebGLRenderTarget(768,384,{type:THREE.HalfFloatType});const lastV=new THREE.Matrix4();let rfN=0;RT.texture.generateMipmaps=false;LOWQ_FN.push(()=>RT.setSize(384,192));const rMat=new THREE.Matrix4(),rCam=new THREE.PerspectiveCamera(),clipP=new THREE.Plane(new THREE.Vector3(0,1,0),-.001),tv=new THREE.Vector3();
  floorM.onBeforeCompile=sh=>{sh.uniforms.rTex={value:RT.texture};sh.uniforms.rMat={value:rMat};
   sh.vertexShader='uniform mat4 rMat;varying vec4 vR;\n'+sh.vertexShader.replace('#include <worldpos_vertex>','#include <worldpos_vertex>\nvR=rMat*modelMatrix*vec4(transformed,1.);');
   sh.fragmentShader='uniform sampler2D rTex;varying vec4 vR;\n'+sh.fragmentShader.replace('#include <tonemapping_fragment>','vec4 rr=vR;rr.xy+=normal.xz*.02*rr.w;vec3 refl=texture2DProj(rTex,rr).rgb;float fr=.22+.5*pow(1.-clamp(dot(normalize(vViewPosition),-normal),0.,1.),3.);gl_FragColor.rgb=mix(gl_FragColor.rgb,refl,fr*.6);\n#include <tonemapping_fragment>');};
  const flS=new THREE.Shape();flS.moveTo(-30,-20);flS.lineTo(30,-20);flS.lineTo(30,20);flS.lineTo(-30,20);flS.lineTo(-30,-20);[-1,1].forEach(s=>{const h=new THREE.Path(),a=Math.min(s*21.05,s*27.65),b=Math.max(s*21.05,s*27.65);h.moveTo(a,8.0);h.lineTo(b,8.0);h.lineTo(b,11.9);h.lineTo(a,11.9);h.lineTo(a,8.0);flS.holes.push(h);const h2=new THREE.Path(),a2=Math.min(s*22.84,s*27.65),b2=Math.max(s*22.84,s*27.65);h2.moveTo(a2,4.95);h2.lineTo(b2,4.95);h2.lineTo(b2,7.8);h2.lineTo(a2,7.8);h2.lineTo(a2,4.95);flS.holes.push(h2);});// B1 stair openings
  const fl=new THREE.Mesh(wuv(new THREE.ShapeGeometry(flS).rotateX(-Math.PI/2)),floorM);S.add(fl);fl.userData.noBake=true;
- function renderFloor(){if(!inside&&pos.z>21)return;if(lvl<0||pos.y<-1.2)return;if(Math.abs(pos.x)>30.6)return;rfN++;if(lastV.equals(C.matrixWorld)&&rfN%8)return;lastV.copy(C.matrixWorld);rCam.copy(C);rCam.position.set(C.position.x,-C.position.y,C.position.z);C.getWorldDirection(tv);tv.y=-tv.y;rCam.up.set(0,1,0);rCam.lookAt(rCam.position.clone().add(tv));rCam.updateMatrixWorld();rCam.matrixWorldInverse.copy(rCam.matrixWorld).invert();
+ function renderFloor(){if(!inside&&pos.z>21)return;if(lvl<0||pos.y<-1.2)return;if(Math.abs(pos.x)>30.6)return;rfN++;if(lastV.equals(C.matrixWorld)&&rfN%8)return;if(LOWQ&&(rfN&1))return;lastV.copy(C.matrixWorld);rCam.copy(C);rCam.position.set(C.position.x,-C.position.y,C.position.z);C.getWorldDirection(tv);tv.y=-tv.y;rCam.up.set(0,1,0);rCam.lookAt(rCam.position.clone().add(tv));rCam.updateMatrixWorld();rCam.matrixWorldInverse.copy(rCam.matrixWorld).invert();
   rMat.set(.5,0,0,.5,0,.5,0,.5,0,0,.5,.5,0,0,0,1).multiply(rCam.projectionMatrix).multiply(rCam.matrixWorldInverse);
   fl.visible=false;wfG.visible=false;markers.forEach(m=>{m.userData.v=m.visible;m.visible=false;});const tm=R.toneMapping,pc=R.clippingPlanes;R.toneMapping=THREE.NoToneMapping;R.clippingPlanes=[clipP];sky.mesh.position.copy(rCam.position);R.setRenderTarget(RT);R.render(S,rCam);R.setRenderTarget(null);R.clippingPlanes=pc;R.toneMapping=tm;fl.visible=true;wfG.visible=true;markers.forEach(m=>m.visible=m.userData.v);sky.mesh.position.copy(C.position);}
  // ---- hall walls, wainscot
@@ -3168,9 +3170,9 @@ function buildLobby(){let API;
  let outState='',outT=-1e9;const OUT_IN=[0,6.8,13.05],OUT_DOOR=[0,4.2,21.5];
  function captureOut(state,now){const PZ=typeof scenes!=='undefined'&&scenes[1];if(!PZ||!PZ.S)return false;const pc=PZ.C,sp=pc.position.clone(),sq=pc.quaternion.clone(),mv=typeof MAPV!=='undefined'&&MAPV.on;
   const pt=state==='in'?OUT_IN:OUT_DOOR;if(mv)MAPV.on=false;pc.position.set(...pt);pc.lookAt(pt[0],pt[1]-.2,pt[2]+(state==='in'?10:-10));pc.updateMatrixWorld();
-  try{if(PZ.pre)PZ.pre(now);if(PZ.rm&&state==='in')PZ.rm(now);outCam.position.set(...pt);outCam.updateMatrixWorld(true);outCam.update(R,PZ.S);}catch(e){console.warn('outside view',e);}
+  try{if(PZ.pre)PZ.pre(now);if(PZ.rm&&state==='in')PZ.rm(now);outCam.renderTarget=outRTs[state];outCam.position.set(...pt);outCam.updateMatrixWorld(true);outCam.update(R,PZ.S);outKey[state]=outKeyNow();}catch(e){console.warn('outside view',e);}
   if(mv)MAPV.on=true;pc.position.copy(sp);pc.quaternion.copy(sq);pc.updateMatrixWorld();outBg.visible=true;sky.mesh.visible=false;return true;}
- function outPre(now){const st=inside?'in':'door';if(st!==outState||now-outT>600){if(captureOut(st,now))outState=st;}outT=now;outBg.position.copy(C.position);C.layers.set(inside?0:1);}
+ function outPre(now){const st=inside?'in':'door';if(st!==outState||outKey[st]!==outKeyNow()){if(outKey[st]===outKeyNow()||captureOut(st,now))outState=st;outBg.material.uniforms.cube.value=outRTs[st].texture;outBg.visible=true;sky.mesh.visible=false;}outT=now;outBg.position.copy(C.position);C.layers.set(inside?0:1);}
  const EY=1.7,EY2=MZ+.25+1.7,EYB=B1Y+1.7;
  const spots=[
   {n:'로비',m:[0,0,12],v:[0,EY,12],lv:0,h:0,pi:.14,t:'1층 로비예요. 바닥의 동그라미를 누르면 그곳으로 걸어가고, 드래그하면 위아래까지 둘러볼 수 있어요.'},
@@ -3393,6 +3395,7 @@ function buildLobby(){let API;
   clear:lanes.concat([[0,-6,-1.6,17.6,22.4],[0,1.6,6,17.6,22.4]])};
  return API={S,C,hasMode:false,interior:true,bake:true,nav:NAV,hint:'동그라미를 누르면 그곳으로 걸어가요 · 드래그해서 360° 둘러보기',
   pre(now){sky.mesh.position.copy(C.position);outPre(now||performance.now());R.toneMappingExposure=.54;},
+  warmOut(){const n=performance.now();['door','in'].forEach(s=>{if(outKey[s]!==outKeyNow())captureOut(s,n);});outState='';},
   map:{b:[-33,33,-27,37],draw:P=>rect(P,-23.2,-17.85,-24.35,-21.1,'mc')+rect(P,-17.85,-14.6,-26,-20,'mc')+rect(P,-19.45,-17.85,-25.6,-24.5,'mk')+rect(P,21,23.6,-25.5,-20,'mc')+rect(P,-30,30,21,24.5,'ms')+rect(P,-14,14,24.5,36.5,'ms')+rect(P,-30,30,-20,20,'mc')+rect(P,-18.9,18.9,-20,-12.2,'mz')+rect(P,-30,-18.9,-20,.2,'mz')+rect(P,18.9,30,-20,.2,'mz')+rect(P,-30,-21,-12.1,-4.8,'mb')+rect(P,21,30,-12.1,-4.8,'mb')+COLS.map(c=>circ(P,c[0],c[1],1.2,'mk')).join('')+rect(P,-14.6,-10.5,18.9,20,'mk')+rect(P,-20.1,-19.1,18.9,20,'mk')+rect(P,27,30,11.6,19.3,'mk')+rect(P,-6,6,20,21,'mw'),
    floors:[{k:-1,n:'B1',draw:P=>rect(P,-33,33,-24.5,-18.5,'mz')+rect(P,-33,33,-18.5,-14.6,'mc')+rect(P,-16.6,16.6,-7.3,-3.5,'mc')+rect(P,-16.6,-11,-14.6,-7.3,'mc')+rect(P,11,16.6,-14.6,-7.3,'mc')+rect(P,-11,11,-14.6,-7.3,'mb')+rect(P,-21,21,-3.5,12.2,'mz')+rect(P,-21,-16.6,-12.1,-4.8,'mc')+rect(P,16.6,21,-12.1,-4.8,'mc')+rect(P,-30,-21,-12.1,-4.8,'mb')+rect(P,21,30,-12.1,-4.8,'mb')+rect(P,-26.9,-19.6,-22.5,-18.5,'mc')+rect(P,-4.6,4.4,-12.5,-11.7,'mk')},
     {k:0,n:'1층'},
@@ -3498,6 +3501,7 @@ function navPath(G,l,a,b){const L=G.route[l];if(!L)return null;const fa=navFree(
  function mid(arr){const r=arr.slice();// the snapped ends replace the real ends only when the real ones were inside a blocked cell
   if(r[0].x===a.x&&r[0].z===a.z)r.shift();if(r.length&&r[r.length-1].x===b.x&&r[r.length-1].z===b.z)r.pop();return r;}}
 // ============ controller ============
+var LOWQ_FN=[];/* lighter-mode hooks (smaller reflection targets) registered by each zone */
 const builders=[null,buildPlaza,buildLobby],scenes=[null,null,null];let active=null,ai=-1,switching=false;
 // ---- performance: merge static geometry per look-alike material and 80 m cell after a zone is built (thousands of draw calls -> a few hundred).
 // Props (trees, shrubs) merge in small 16 m cells so clearView can still hide what blocks a tour view (it hides the whole cell chunk; tree sway is lost).
@@ -3562,7 +3566,7 @@ function warmBg(i){(function tick(){if(WARM[i]&&WARM[i].done)return;if(!switchin
 // finish warming zone i behind the fade, then run cb (a spinner and progress bar show if it takes a moment)
 function warmThen(i,cb){ensure(i);const w=warmPlan(i);if(!w||w.done){cb();return;}const bar=FD.querySelector('.pb i'),st=performance.now();
  WHOLD=1;(function tick(){const d=warmStep(i,40);if(performance.now()-st>250)FD.classList.add('busy');if(bar)bar.style.width=(warmFrac(i)*100).toFixed(1)+'%';if(d){WHOLD=0;cb();return;}requestAnimationFrame(tick);})();}
-function switchTo(i,k){if(switching)return;switching=true;hush();FD.style.opacity=1;setTimeout(()=>{warmThen(i,()=>{activate(i,k);requestAnimationFrame(()=>requestAnimationFrame(()=>{FD.style.opacity=0;FD.classList.remove('busy');switching=false;}));});},520);}
+function switchTo(i,k){if(switching)return;switching=true;hush();FD.style.opacity=1;setTimeout(()=>{warmThen(i,()=>{try{if(scenes[i].warmOut)scenes[i].warmOut();}catch(e){}activate(i,k);requestAnimationFrame(()=>requestAnimationFrame(()=>{FD.style.opacity=0;FD.classList.remove('busy');switching=false;}));});},400);}
 // ---- minimap
 const MAPEL=document.getElementById('map'),MB=document.getElementById('mapBody'),MT=document.getElementById('mapToggle'),TZ=document.getElementById('tabZone'),TC=document.getElementById('tabCampus');
 let mapTourHide=false,mapTab='zone',mapOpen=innerWidth>700,curP=null,meEl=null,mapFloor=null,shownFl=null;
@@ -3834,11 +3838,11 @@ addEventListener('resize',fit);new ResizeObserver(fit).observe(P);
 requestAnimationFrame(()=>{activate(1);const ld=document.getElementById('loading'),bar=ld.querySelector('.pb i');bar.style.width='35%';
  const reveal=()=>{WHOLD=0;WARM[1]={done:true};bar.style.width='100%';setTimeout(()=>{ld.style.opacity=0;setTimeout(()=>ld.remove(),700);},150);};
  setTimeout(()=>{try{ensure(2);}catch(e){console.warn(e);reveal();return;}WHOLD=1;bar.style.width='55%';const st=performance.now();
-  (function tick(){let d=true;try{d=warmStep(2,40);}catch(e){console.warn('warm',e);}bar.style.width=(55+45*warmFrac(2)).toFixed(1)+'%';if(d||performance.now()-st>25000){if(!d)warmBg(2);reveal();return;}requestAnimationFrame(tick);})();},120);});
+  (function tick(){let d=true;try{d=warmStep(2,40);}catch(e){console.warn('warm',e);}bar.style.width=(55+45*warmFrac(2)).toFixed(1)+'%';if(d||performance.now()-st>25000){if(!d)warmBg(2);else{try{if(scenes[2].warmOut)scenes[2].warmOut();}catch(e){console.warn('out',e);}}reveal();return;}requestAnimationFrame(tick);})();},120);});
 // adaptive resolution: if the device cannot keep ~50 fps, render fewer pixels (2x -> 1x in steps); step back up when there is clear headroom
-const PR_MAX=Math.min(devicePixelRatio||1,2);let LOWQ=false,prNow=Math.min(PR_MAX,1.5),prAcc=0,prN=0,prT=0,prPrev=0,prHold=0;
+const PR_MAX=Math.min(devicePixelRatio||1,2),PR_MIN=.75;let LOWQ=false,prNow=Math.min(PR_MAX,1.5),prAcc=0,prN=0,prT=0,prPrev=0,prHold=0;
 function prTick(now){const dt=now-prPrev;prPrev=now;if(switching||document.hidden||dt<=0||dt>120){prAcc=prN=0;prHold=now+1500;return;}if(now<prHold)return;prAcc+=dt;prN++;
- if(prN>=45){const avg=prAcc/prN;prAcc=prN=0;let n=prNow;if(avg>20.5&&prNow>1)n=Math.max(1,prNow-.25);else if(avg<12.5&&prNow<PR_MAX)n=Math.min(PR_MAX,prNow+.25);if(n===prNow&&avg>24&&prNow<=1&&!LOWQ){LOWQ=true;scenes.forEach(s=>s&&s.S.traverse(o=>{if(o.isDirectionalLight&&o.shadow.map){o.shadow.mapSize.set(1024,1024);o.shadow.map.dispose();o.shadow.map=null;}}));}if(n!==prNow){prNow=n;R.setPixelRatio(n);fit();prHold=now+1200;}}}
+ if(prN>=(prAcc/prN>30?20:45)){const avg=prAcc/prN;prAcc=prN=0;let n=prNow;if(avg>20.5&&prNow>1)n=Math.max(1,prNow-(avg>30?.5:.25));else if(avg>26&&LOWQ&&prNow>PR_MIN)n=Math.max(PR_MIN,prNow-.125);else if(avg<12.5&&prNow<PR_MAX)n=Math.min(PR_MAX,prNow+(prNow<1?.125:.25));if(n===prNow&&avg>24&&prNow<=1&&!LOWQ){LOWQ=true;scenes.forEach(s=>s&&s.S.traverse(o=>{if(o.isDirectionalLight&&o.shadow.map){o.shadow.mapSize.set(1024,1024);o.shadow.map.dispose();o.shadow.map=null;o.shadow.needsUpdate=true;}}));LOWQ_FN.forEach(f=>{try{f();}catch(e){}});}if(n!==prNow){prNow=n;R.setPixelRatio(n);fit();prHold=now+1200;}}}
 (function loop(now){requestAnimationFrame(loop);if(!active||WHOLD)return;prTick(now||0);for(const x of BAKE_TEX)if(x.src.version!==x.ver){x.ver=x.src.version;x.t.needsUpdate=true;}freeStep(now||0);active.frame(now||0);if(MAPV.on)mvStep(now||0);R.toneMappingExposure=1;if(active.pre)active.pre(now||0);R.render(active.S,active.C);if(MAPV.on)mvLabels();
  if(cmeEl&&active.toC){const m=meNow(),[u,v]=active.toC(m.x,m.z);cmeEl.setAttribute('transform',`translate(${u.toFixed(1)},${v.toFixed(1)}) rotate(${((m.h+active.off)*180/Math.PI).toFixed(1)})`);if(csvg)csvg.setAttribute('viewBox',`${(u-ZV/2).toFixed(1)} ${(v-ZV/2).toFixed(1)} ${ZV} ${ZV}`);}
  if(meEl&&curP){const m=meNow(),p=curP(m.x,m.z);meEl.setAttribute('transform',`translate(${p[0].toFixed(1)},${p[1].toFixed(1)}) rotate(${(m.h*180/Math.PI).toFixed(1)})`);}})();
