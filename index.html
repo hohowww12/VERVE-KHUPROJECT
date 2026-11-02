@@ -3233,7 +3233,7 @@ function buildLobby(){let API;
  const wfM=new THREE.MeshBasicMaterial({map:chevT,transparent:true,opacity:.92,depthWrite:false,toneMapped:false,fog:false,polygonOffset:true,polygonOffsetFactor:-4,side:THREE.DoubleSide});
  const wfRingM=new THREE.MeshBasicMaterial({color:new THREE.Color(0x1a73e8).convertSRGBToLinear(),transparent:true,opacity:.85,depthWrite:false,toneMapped:false,side:THREE.DoubleSide});
  let wfSel=null,wfDest=null;
- window.wfLive=()=>!!wfDest;window.WFNAME=null;window.wfDestP=()=>wfDest&&wfDest.position;function wfClear(){while(wfG.children.length){const o=wfG.children.pop();if(o.geometry)o.geometry.dispose();if(o.material&&o.material!==wfM&&o.material!==wfRingM){if(o.material.map)o.material.map.dispose();o.material.dispose();}}wfSel=null;wfDest=null;WFR.hidden=true;window.WFSELF=false;window.WFNAME=null;}
+ window.wfLive=()=>!!wfDest;window.WFNAME=null;window.wfDestP=()=>wfDest&&wfDest.position;function wfClear(){while(wfG.children.length){const o=wfG.children.pop();if(o.geometry)o.geometry.dispose();if(o.material&&o.material!==wfM&&o.material!==wfRingM){if(o.material.map)o.material.map.dispose();o.material.dispose();}}wfSel=null;wfDest=null;WFR.hidden=true;window.WFSELF=false;window.WFNAME=null;if(typeof wfMode==='function'&&wfWalking)wfMode(false);}
  function wfDraw(F){wfClear();wfSel=F;window.WFNAME=F.n;const pts=planPath(V(...F.to),F.lv);const P=[],U=[],I=[];let acc=0,w=.42;
   for(let k=1;k<pts.length;k++){const a=pts[k-1],b=pts[k];const ga=V(a.x,a.y-EY+.07,a.z),gb=V(b.x,b.y-EY+.07,b.z);const d=V(gb.x-ga.x,0,gb.z-ga.z);const L=gb.distanceTo(ga);if(L<.05)continue;d.normalize();const sx=-d.z*w,sz=d.x*w;const n=P.length/3;
    P.push(ga.x+sx,ga.y,ga.z+sz,ga.x-sx,ga.y,ga.z-sz,gb.x+sx,gb.y,gb.z+sz,gb.x-sx,gb.y,gb.z-sz);U.push(0,acc/.9,1,acc/.9,0,(acc+L)/.9,1,(acc+L)/.9);I.push(n,n+2,n+1,n+1,n+2,n+3);acc+=L;}
@@ -3250,22 +3250,32 @@ function buildLobby(){let API;
 #wfp .g button{font-size:14px;padding:8px 14px;border:1.5px solid #dadce0;background:#fff;color:#202124;border-radius:999px;font-weight:500}#wfp .g button:hover{background:#e8f0fe;border-color:#1a73e8}
 #wfp .x,#wfr .x{position:absolute;right:10px;top:8px;border:none;background:none;font-size:22px;padding:4px 10px;color:#5f6368}
 #wfr{bottom:16px;padding:14px 18px}#wfr b{display:block;font-size:17px}#wfr span{display:block;font-size:13px;color:#5f6368;margin:2px 0 10px}#wfr .a{display:flex;gap:8px}
-#wfr .a button{font-size:14px;padding:8px 16px;border-radius:999px;border:1.5px solid #dadce0;background:#fff;color:#1a73e8}#wfr .a button.pri{background:#1a73e8;border-color:#1a73e8;color:#fff}
+#wfr .a button{font-size:14px;padding:8px 16px;border-radius:999px;border:1.5px solid #dadce0;background:#fff;color:#1a73e8}#wfr .a button.pri{background:#1a73e8;border-color:#1a73e8;color:#fff}#wfr .a button.stop{background:#fff;border-color:#d93025;color:#d93025;font-weight:700;flex:1}#wfr .a button[hidden]{display:none}#wfr.walking b::before{content:'🚶 ';}
 #panel.wfon #bar{display:none}`;document.head.appendChild(css);
  const WFB=document.createElement('button');WFB.id='wf';WFB.className='ghost';WFB.textContent='🧭 시설 찾기';WFB.style.display='none';document.querySelector('#bar .row').insertBefore(WFB,document.getElementById('next'));
  const WFP=document.createElement('div');WFP.id='wfp';WFP.hidden=true;WFP.setAttribute('role','dialog');WFP.setAttribute('aria-label','도서관 시설 찾기');
  WFP.innerHTML='<button class="x" aria-label="닫기">×</button><h2>어디로 갈까요?</h2><p class="note"><b>열람실</b>은 공부 좌석이 있는 곳이에요 (1층 제1열람실·벗터열람실, 2층 혜윰열람실·제2열람실).<br><b>자료열람실</b>은 책을 보고 대출·반납하는 곳이에요 (지하 1층).</p>'+['1층','2층','지하 1층'].map(f=>`<h3>${f}</h3><div class="g">${FAC.map((F,i)=>F.f===f?`<button data-i="${i}">${F.n}</button>`:'').join('')}</div>`).join('');
- const WFR=document.createElement('div');WFR.id='wfr';WFR.hidden=true;WFR.innerHTML='<button class="x" aria-label="경로 지우기">×</button><b></b><span></span><div class="a"><button class="pri" data-a="go">따라 걷기</button><button data-a="self">직접 걸어가기</button><button data-a="other">다른 시설</button></div>';
+ const WFR=document.createElement('div');WFR.id='wfr';WFR.hidden=true;WFR.innerHTML='<button class="x" aria-label="경로 지우기">×</button><b></b><span></span><div class="a"><button class="pri" data-a="go">따라 걷기</button><button data-a="self">직접 걸어가기</button><button data-a="other">다른 시설</button><button class="stop" data-a="stop" hidden>■ 따라 걷기 멈추기</button></div>';
  const WFN=WFR.querySelector('b'),WFI=WFR.querySelector('span');const PN=document.getElementById('panel');PN.appendChild(WFP);PN.appendChild(WFR);
  const wfShow=on=>{WFP.hidden=!on;PN.classList.toggle('wfon',on||!WFR.hidden);};
  WFB.onclick=()=>{if(anim)return;wfShow(true);};WFP.querySelector('.x').onclick=()=>wfShow(false);
  WFP.querySelectorAll('.g button').forEach(b=>b.onclick=()=>{wfShow(false);wfDraw(FAC[+b.dataset.i]);PN.classList.add('wfon');});
- WFR.querySelector('.x').onclick=()=>{wfClear();PN.classList.remove('wfon');hush();};
+ // card while walking: only '멈추기' (and ×); after a stop the card goes back to its choices with the route redrawn from where you stand
+ const wfAct=WFR.querySelectorAll('.a button');
+ function wfMode(w){wfWalking=w;WFR.classList.toggle('walking',w);wfAct.forEach(b=>b.hidden=w?b.dataset.a!=='stop':b.dataset.a==='stop');if(wfSel){WFN.textContent=w?`${wfSel.n}까지 같이 걷는 중`:wfSel.n;WFR.querySelector('.x').setAttribute('aria-label',w?'멈추고 경로 지우기':'경로 지우기');}}
+ window.wfHaltNow=wfHaltNow;function wfHaltNow(){const how=wfStopReq;wfStopReq=null;anim=null;pend=false;wfTok++;window.WFWALK=false;hChase.v=null;yaw=pyaw=0;
+  lvl=Math.abs(pos.y-EY2)<.2?1:Math.abs(pos.y-EYB)<.2?-1:0;inside=true;const F=wfSel;wfMode(false);
+  if(how==='clear'||!F){wfClear();PN.classList.remove('wfon');say('따라 걷기를 멈추고 경로를 지웠어요.');return;}
+  wfDraw(F);PN.classList.add('wfon');say(`여기서 멈췄어요. '따라 걷기'를 누르면 ${F.n}까지 이어서 걸어가요.`);}
+ function wfStop(how){if(!wfWalking){if(how==='clear'){wfClear();PN.classList.remove('wfon');hush();}return;}wfStopReq=how;if(!anim)wfHaltNow();else{wfAct.forEach(b=>{if(b.dataset.a==='stop'){b.disabled=true;b.textContent='멈추는 중…';}});}}
+ function wfArrive(){wfWalking=false;wfStopReq=null;wfMode(false);wfClear();PN.classList.remove('wfon');}
+ WFR.querySelector('[data-a=stop]').onclick=()=>wfStop('stop');
+ WFR.querySelector('.x').onclick=()=>wfStop('clear');
  WFR.querySelector('[data-a=other]').onclick=()=>wfShow(true);
  // walk it yourself (user 2026-10-29): the blue route stays on the floor, free walk takes over; reaching the ring says you're there
  WFR.querySelector('[data-a=self]').onclick=()=>{if(!wfSel||anim)return;WFR.hidden=true;PN.classList.remove('wfon');setFree(true);window.WFSELF=true;HINT.textContent='바닥의 파란 길을 따라 직접 걸어가 보세요';say(`파란 길을 따라 ${wfSel.n}까지 직접 걸어가 보세요. 도착하면 알려 드릴게요.`);};
  setInterval(()=>{if(typeof FREE==='undefined'||!FREE||!wfDest||!wfSel||active!==API)return;const r=wfDest.position;if(Math.hypot(pos.x-r.x,pos.z-r.z)<1.8&&Math.abs(pos.y-EY-r.y)<1.2){const F=wfSel;say(F.t||`${F.n}에 도착했어요.`);wfClear();HINT.textContent=FREE_HINT;}},250);
- WFR.querySelector('[data-a=go]').onclick=()=>{const F=wfSel;if(!F||anim)return;pushHist();tour=-1;window.WFWALK=true;
+ WFR.querySelector('[data-a=go]').onclick=()=>{const F=wfSel;if(!F||anim||pend)return;pushHist();tour=-1;window.WFWALK=true;wfStopReq=null;wfMode(true);{const sb=WFR.querySelector('[data-a=stop]');sb.disabled=false;sb.textContent='■ 따라 걷기 멈추기';}
  // the gated reading rooms: walk through the opening gate and door into the room (user 2026-10-29)
  const RN={'제1열람실':'제1열람실 안','벗터열람실':'벗터 안','혜윰열람실':'혜윰열람실 안','제2열람실':'제2열람실 안'},k=RN[F.n]?spots.findIndex(q=>q.n===RN[F.n]):-1;if(k>=0){wfShow(false);inside=true;goSpot(k);return;}
  const gF=()=>{walkTo(V(...F.to),F.lv,F.in?undefined:F.h,F.pi,F.in?null:F.t);if(F.in)anim.done=()=>walkPts(F.in.map(p=>V(...p)),F.lv,F.h,F.pi,F.t);};
@@ -3312,14 +3322,17 @@ function buildLobby(){let API;
  // tour walking speed in m/s; a spot can ask for a brisker walk to reach it (sp), e.g. the long cross-lobby walks (user 2026-10-30)
  let tourSp=2.6;
  // '따라 걷기' (user 2026-10-30): an ordinary walking pace, the same 1.25 m/s the route card uses for its time, with a short start and stop
- const WFV=2.1,wfDur=L=>Math.max(1500,L/WFV*1000+700);
+ const WFV=2.8,wfDur=L=>Math.max(1500,L/WFV*1000+700);
  const wfProf=(t,T)=>{const r=Math.min(.7,T/4)/T,v=1/(1-r);return t<r?v*t*t/(2*r):t>1-r?1-v*(1-t)*(1-t)/(2*r):v*(t-r/2);};
- let pend=false;const hChase={v:null,t:0};// a door is opening before the walk through it: still busy
+ let pend=false;const hChase={v:null,t:0};
+ // stopping a follow-walk (user 2026-11-02): the walk halts at the next point on a floor (never on a stair or inside a door lane)
+ let wfStopReq=null,wfTok=0,wfWalking=false;
+ const wfSafe=p=>[EY,EY2,EYB].some(v=>Math.abs(p.y-v)<.03)&&!(Math.abs(p.x)>25.2&&Math.abs(p.x)<32.4&&(Math.abs(p.z-8.475)<1.7||Math.abs(p.z+1.825)<1.7));// a door is opening before the walk through it: still busy
  const roomOf=v=>Math.abs(v[0])>30.6&&v[1]>0?{s:Math.sign(v[0]),f:v[1]>4?1:0}:null;
  function laneOf(r){const z=r.f?-2.3+.475:8.475,y=r.f?EY2:EY;return{z,y,out:V(r.s*(r.f?25.9:26.4),y,z),gate:V(r.s*29.0,y,z),inn:V(r.s*31.3,y,z)};}
- function roomIn(r,s){const L=laneOf(r),D=BUT.door(r.s,r.f);walkTo(L.out,r.f,r.s*Math.PI/2,.02,null);anim.done=()=>{D.tgt=1;inside=true;pend=true;setTimeout(()=>{pend=false;walkPts([L.gate,L.inn,...(s.via||[]).map(p=>V(...p)),V(...s.v)],r.f,s.h,s.pi,s.t,()=>setTimeout(()=>{D.tgt=0;},300),2600*2.6/tourSp);},reduce?50:650);};}
+ function roomIn(r,s){const L=laneOf(r),D=BUT.door(r.s,r.f);walkTo(L.out,r.f,r.s*Math.PI/2,.02,null);anim.done=()=>{D.tgt=1;inside=true;pend=true;const tk=wfTok;setTimeout(()=>{pend=false;if(tk!==wfTok){D.tgt=0;return;}walkPts([L.gate,L.inn,...(s.via||[]).map(p=>V(...p)),V(...s.v)],r.f,s.h,s.pi,s.t,()=>setTimeout(()=>{D.tgt=0;},300),2600*2.6/tourSp);},reduce?50:650);};}
  const viaBack=()=>{const c=spots[tour];return c&&c.via&&Math.hypot(pos.x-c.v[0],pos.z-c.v[2])<1.5?c.via.slice().reverse().map(p=>V(...p)):[];};
- function roomOut(then){const r=roomOf([pos.x,pos.y,pos.z]),L=laneOf(r),D=BUT.door(r.s,r.f),vb=viaBack();D.tgt=1;pend=true;setTimeout(()=>{pend=false;walkPts([...vb,L.inn,L.gate,L.out],r.f,-r.s*Math.PI/2,.05,null,()=>{D.tgt=0;then();},2600*2.6/tourSp);},reduce?50:650);}
+ function roomOut(then){const r=roomOf([pos.x,pos.y,pos.z]),L=laneOf(r),D=BUT.door(r.s,r.f),vb=viaBack();D.tgt=1;pend=true;const tk=wfTok;setTimeout(()=>{pend=false;if(tk!==wfTok){D.tgt=0;return;}walkPts([...vb,L.inn,L.gate,L.out],r.f,-r.s*Math.PI/2,.05,null,()=>{D.tgt=0;then();},2600*2.6/tourSp);},reduce?50:650);}
  function goSpot(i){spin=null;const s=spots[i];tour=i;tourSp=s.sp||2.6;setBtn(i===spots.length-1?'처음으로':'다음 장소');
   // 벗터 안 is only looked at from one spot: fade in and out instead of walking through the door
   const rT=roomOf(s.v),rH=roomOf([pos.x,pos.y,pos.z]);
@@ -3423,7 +3436,7 @@ function buildLobby(){let API;
    if(!reduce)wings.forEach((w,i)=>w.rotation.y=s*.35*(i?1:-1));ringM.opacity=.5+Math.sin(s*2.5)*.25;
    if(spin&&!anim){const t=(now-spin.t0)/1000;if(t>=0){const a=cl(t/(reduce?.1:2.8)),b=cl((t-(reduce?.1:3.0))/(reduce?.1:2.8));pos.set(0,EY,19.2-17.2*ez(a));head=la(0,Math.PI,ez(b));pitch=.1+.1*ez(b);if(b>=1){spin=null;head=Math.PI;}}}
    const _h0=head,_wa=!!anim;
-   if(anim){const t=cl((now-anim.t0)/anim.d),e=anim.lin?wfProf(t,anim.d/1000):ez(t),dist=e*anim.tot;const np=posAt(anim,dist);let ahead=posAt(anim,dist+2.6);
+   if(anim){if(anim.lf!==undefined&&now-anim.lf>250)anim.t0+=now-anim.lf-50;anim.lf=now;/* a long hitch pauses the walk instead of skipping it */const t=cl((now-anim.t0)/anim.d),e=anim.lin?wfProf(t,anim.d/1000):ez(t),dist=e*anim.tot;const np=posAt(anim,dist);let ahead=posAt(anim,dist+2.6);
     // a tight turn (switchback stairs, a door right after a corner): the 2.6 m point would sit behind a wall, so look nearer along the route
     {const nx=posAt(anim,dist+.35),sx=nx.x-np.x,sz=nx.z-np.z,sl=Math.hypot(sx,sz);if(sl>.05)for(const L of [1.5,.8]){const ax=ahead.x-np.x,az=ahead.z-np.z,al=Math.hypot(ax,az);if(al<.05||(ax*sx+az*sz)/(al*sl)>.5)break;ahead=posAt(anim,dist+L);}}
     // 따라 걷기 (user 2026-10-30: it kept looking at walls): face the way the feet go, the average route direction from .3 m behind to .9 m
@@ -3435,7 +3448,8 @@ function buildLobby(){let API;
     {const dt=Math.min(.05,(now-(anim.lt||now))/1000);anim.lt=now;anim.hs=anim.hs===undefined?anim.hw:la(anim.hs,anim.hw,1-Math.exp(-dt*(anim.lin?7:5)));}
     if(anim.w0===undefined){const tn=a=>Math.abs(Math.atan2(Math.sin(a),Math.cos(a)));anim.w0=Math.min(.35,Math.max(.1,(300+tn(anim.hw-anim.h0)*700)/anim.d));}
     const hA=la(anim.h0,anim.hs,ez(cl(t/anim.w0)));head=anim.h1===undefined?hA:la(hA,anim.h1,ez(cl(1-(anim.tot-dist)/2.2)));pitch=anim.pi0+(anim.pi1-anim.pi0)*e;
-    if(t>=1){lvl=anim.tl;if(anim.h1!==undefined)head=anim.h1;say(anim.text);const dn=anim.done;anim=null;if(dn)dn();if(!anim&&!pend)window.WFWALK=false;}}
+    if(t<1&&wfStopReq&&anim.lin&&wfSafe(np)){pos.y=np.y;wfHaltNow();}
+    else if(t>=1){lvl=anim.tl;if(anim.h1!==undefined)head=anim.h1;say(anim.text);const dn=anim.done;anim=null;if(dn)dn();if(!anim&&!pend){const was=window.WFWALK;window.WFWALK=false;if(was&&wfWalking)wfArrive();}}}
    // on a tour the view never swings faster than ~70°/s: the heading chases where the walk wants to look
    {const dt=Math.min(.05,(now-(hChase.t||now))/1000);hChase.t=now;if(!_wa&&hChase.v!==null&&Math.abs(Math.atan2(Math.sin(head-_h0),Math.cos(head-_h0)))>.3)hChase.v=null;
     if(!reduce&&(_wa||hChase.v!==null)){const tg=_wa?head:hChase.v;let d=Math.atan2(Math.sin(tg-_h0),Math.cos(tg-_h0));const lim=(window.TOUR&&TOUR.on?.9:window.WFWALK?2.2:1.4)*dt;if(Math.abs(d)>lim){head=_h0+Math.sign(d)*lim;hChase.v=tg;}else{head=tg;hChase.v=null;}}else hChase.v=null;}
