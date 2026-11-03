@@ -61,7 +61,7 @@ button:focus-visible{outline:3px solid #ffd27a;outline-offset:2px}
 @media (max-width:520px){#joy{bottom:178px}}
 @supports (padding:max(0px)){#map{left:max(16px,env(safe-area-inset-left))}#bubble{right:max(16px,env(safe-area-inset-right))}#mctl{right:max(16px,env(safe-area-inset-right))}#bar{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}#joy{left:max(22px,env(safe-area-inset-left))}}
 #loading{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--muted);font-size:18px;transition:opacity .6s}
-#loading{flex-direction:column;gap:16px;background:radial-gradient(120% 90% at 50% 42%,#2a2017 0%,#1a140f 70%)}#loading .sp{width:38px;height:38px;border-radius:50%;border:3px solid rgba(239,226,204,.16);border-top-color:#efe2cc;animation:fsp .9s linear infinite;will-change:transform}#loading .pb{width:160px;height:3px;border-radius:2px;background:rgba(239,226,204,.14);overflow:hidden}#loading .pb i{display:block;height:100%;width:4%;background:#efe2cc;transition:width .25s}#loading small{font:500 12px/1.3 'Noto Sans KR','Apple SD Gothic Neo',sans-serif;opacity:.6;letter-spacing:-.01em}
+#loading{flex-direction:column;gap:16px;background:radial-gradient(120% 90% at 50% 42%,#2a2017 0%,#1a140f 70%)}#loading .sp{width:38px;height:38px;border-radius:50%;border:3px solid rgba(239,226,204,.16);border-top-color:#efe2cc;animation:fsp .9s linear infinite;will-change:transform}#loading .pb{width:160px;height:3px;border-radius:2px;background:rgba(239,226,204,.14);overflow:hidden}#loading .pb i{display:block;height:100%;width:4%;background:#efe2cc;transition:width .25s}#loading small{font:500 12px/1.3 'Noto Sans KR','Apple SD Gothic Neo',sans-serif;opacity:.6;letter-spacing:-.01em}#loading .tip{margin-top:14px;max-width:min(300px,calc(100vw - 48px));padding:12px 16px;border:1px solid rgba(239,226,204,.22);border-radius:14px;background:rgba(239,226,204,.06);color:#efe2cc;text-align:center;font:500 14px/1.55 'Noto Sans KR','Apple SD Gothic Neo',sans-serif;letter-spacing:-.01em;word-break:keep-all}#loading .tip b{display:block;font-size:11.5px;letter-spacing:.08em;color:#d9a46a;margin-bottom:4px;font-weight:700}#loading .tip em{font-style:normal;color:#f3c58a;font-weight:700}#loading .ntip{max-width:min(300px,calc(100vw - 48px));margin-top:2px;text-align:center;color:#efe2cc;opacity:.8;font:500 13px/1.6 'Noto Sans KR','Apple SD Gothic Neo',sans-serif;letter-spacing:-.01em;word-break:keep-all}#loading .ntip b{color:#d9a46a;font-weight:700;letter-spacing:.06em;margin-right:6px}#loading .ntip em{font-style:normal;color:#f3c58a;font-weight:700;white-space:nowrap}
 /* ---- map view (map-app look) */
 #mlab{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;display:none}
 #panel.mapmode #mlab{display:block}
@@ -115,7 +115,7 @@ button:focus-visible{outline:3px solid #ffd27a;outline-offset:2px}
   <div id="mlab" aria-label="지도 장소 이름"></div>
   <div id="mctl"><button id="mcomp" aria-label="북쪽을 위로"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M15 3l4.2 12H10.8z" fill="#e8453c"/><path d="M15 27l-4.2-12h8.4z" fill="#9aa0a6"/><circle cx="15" cy="15" r="1.6" fill="#fff"/></svg></button><div class="rg"><button id="mrl" aria-label="왼쪽으로 돌리기" title="왼쪽으로 돌리기 (Q)"><svg viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M6.5 2.8v4.2h4.2"/></svg></button><button id="mrr" aria-label="오른쪽으로 돌리기" title="오른쪽으로 돌리기 (E)"><svg viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M17.5 2.8v4.2h-4.2"/></svg></button><button id="mtilt" aria-label="위에서 보기" title="위에서 보기 / 비스듬히 보기">2D</button></div><div class="zg"><button id="mzi" aria-label="확대">+</button><button id="mzo" aria-label="축소">−</button></div></div>
   <div id="mcard" role="dialog" aria-labelledby="mcn"><button id="mcx" aria-label="닫기">×</button><h2 id="mcn"></h2><div class="cat" id="mcc"></div><p id="mcd"></p><div class="rt" id="mcr" hidden></div><div class="acts"><button id="mcgo" class="pri"><svg viewBox="0 0 16 16"><path d="M3 13l10-5L3 3l2.2 5z"/></svg>길찾기</button><button id="mcst"><svg viewBox="0 0 16 16"><circle cx="8.6" cy="2.8" r="1.4"/><path d="M7.6 6.2L5.6 9l2.4 1.4V14.5M7.6 6.2l1.8 2.3 2.4.8M7.6 6.2L6.8 10.5 4.6 14.5"/></svg>거리에서 보기</button><button id="mcin"><svg viewBox="0 0 16 16"><path d="M6.5 2.5h6.5v11H6.5M2.5 8h7M7 5.5L9.5 8 7 10.5"/></svg>도서관 안으로</button></div></div>
-  <div id="loading"><div class="sp"></div><span>사색의광장과 도서관을 실사로 준비하고 있어요</span><div class="pb"><i></i></div><small>처음 한 번만 준비하면 이후엔 바로 이동해요</small></div>
+  <div id="loading"><div class="sp"></div><span>사색의광장과 도서관을 실사로 준비하고 있어요</span><div class="pb"><i></i></div><small>처음 한 번만 준비하면 이후엔 바로 이동해요</small><div class="tip"><b>처음 방문하셨나요?</b>처음 방문하셨다면 <em>▶ 투어 보기</em>부터 시작해 보세요. 주요 장소를 순서대로 안내해 드려요.</div><div class="ntip"><b>TIP</b>사실 사색의광장은 밤이 더 예뻐요.<br>왼쪽 위 <em>☾&nbsp;밤</em> 버튼으로 바꿔 보세요.</div></div>
   <div id="bar">
     <div class="row">
       <button id="free" class="ghost">🚶 자유 이동</button>
@@ -1198,7 +1198,7 @@ vec3 aged(vec3 c){vec3 p=vWP;float side=1.-abs(vWN.y);float u=p.x*abs(vWN.z)+p.z
    ptPlace:['plaza','arch','pond','thinker','lib','lib'],
    places:[
     {id:'lib',n:'중앙도서관',cat:'도서관',ic:'book',col:'#c8642f',x:0,y:29,z:0,k:'main',stop:4,inside:2,to:11,view:{d:105,tilt:.5,yaw:0},t:stops[4].t+' '+stops[5].t},
-    {id:'plaza',n:'사색의광장',cat:'광장',k:'area',x:0,y:.5,z:62,stop:0,to:8,view:{d:200,tilt:.8},t:'중앙도서관 앞으로 길게 펼쳐진 광장이에요. 일곱 개의 아치와 거울 연못, 생각하는 사람 조각상이 도서관을 향해 한 줄로 놓여 있어요.'},
+    {id:'plaza',n:'사색의광장',cat:'광장',k:'area',x:0,y:.5,z:62,stop:0,to:8,view:{d:200,tilt:.8},t:'중앙도서관 앞으로 길게 펼쳐진 광장이에요. 일곱 개의 아치와 분수대, 생각하는 사람 조각상이 도서관을 향해 한 줄로 놓여 있어요.'},
     {id:'arch',n:'일곱 아치',cat:'조형물',ic:'arch',col:'#8a6a4a',x:0,y:8,z:140,k:'sub',stop:1,to:2,end:[0,143],view:{d:70,tilt:.55},t:'광장 입구에 일곱 개의 아치가 나란히 서 있어요. '+stops[1].t},
     {id:'pond',n:'분수 연못',cat:'연못 · 분수',ic:'drop',col:'#1e88c8',x:0,y:3,z:122,k:'sub',stop:2,to:3,view:{d:75,tilt:.7},t:stops[2].t},
     {id:'thinker',n:'생각하는 사람 조각상',cat:'조각상',ic:'statue',col:'#7b5ea7',x:0,y:4.5,z:108.6,k:'sub',stop:3,to:6,view:{d:55,tilt:.6},t:stops[3].t}]},
@@ -1564,13 +1564,12 @@ function buildLobby(){let API;
   bb(bDoorG,-13.75,-12.85,Y0,Y0+2.1,-25.99,-25.95);cyl(.03,.04,steel,-13.0,Y0+1.0,-25.93,10).rotation.x=Math.PI/2;
   bb(bWall,12.9,16.3,Y0,YC,-22.2,-22.0);bb(bWall,12.9,13.1,Y0,YC,-22.0,-18.7);bb(bWall,16.1,16.3,Y0,YC,-22.0,-18.7);flat(3.2,3.3,ceilM(3.2,3.3),14.6,YC,-20.35,true);box(1.2,.02,.3,panelM,14.6,YC-.015,-20.4);
   // exits at both ends: stainless framed glass doors, the outside ramp and greenery beyond (IMG_1242/1255/1256)
-  const outT=ctex(256,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#eef3f6');gr.addColorStop(.55,'#dfe8ea');gr.addColorStop(.62,'#7f9a6a');gr.addColorStop(1,'#5f7f4c');g.fillStyle=gr;g.fillRect(0,0,w,h);const r=mkRnd(3);for(let i=0;i<500;i++){g.fillStyle=`rgba(${40+r()*60|0},${90+r()*60|0},${40+r()*30|0},.6)`;g.beginPath();g.arc(r()*w,h*.5+r()*h*.3,2+r()*6,0,7);g.fill();}});
-  const outM=new THREE.MeshBasicMaterial({map:outT,toneMapped:false});
+  const frostT=ctex(64,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#f4f7f8');gr.addColorStop(.6,'#e9eff1');gr.addColorStop(1,'#dfe6e8');g.fillStyle=gr;g.fillRect(0,0,w,h);});
+  const frostM=new THREE.MeshBasicMaterial({map:frostT,toneMapped:false,side:THREE.DoubleSide});
   [-1,1].forEach(s=>{const xe=s*33;bb(bWall,Math.min(xe,xe+s*.2),Math.max(xe,xe+s*.2),Y0+2.6,YC,-18.5,-14.6);
    [-18.5,-14.6].forEach(z=>bb(steel,xe-.06,xe+.06,Y0,Y0+2.6,z-.05,z+.05));bb(steel,xe-.06,xe+.06,Y0+2.55,Y0+2.65,-18.5,-14.6);bb(steel,xe-.06,xe+.06,Y0,Y0+2.6,-16.6,-16.5);
-   pl(1.95,2.5,glsC,xe,Y0+1.27,-17.53,Math.PI/2);pl(1.95,2.5,glsC,xe,Y0+1.27,-15.58,Math.PI/2);
-   flat(8,4.5,P_(0xb9b5ad,{rough:.8}),xe+s*4,Y0+.002,-16.55);bb(bWall,Math.min(xe,xe+s*8),Math.max(xe,xe+s*8),Y0,Y0+.9,-18.8,-18.5);bb(bWall,Math.min(xe,xe+s*8),Math.max(xe,xe+s*8),Y0,Y0+.9,-14.6,-14.3);
-   pl(9,6,outM,xe+s*8,Y0+2.5,-16.55,-s*Math.PI/2);
+   // user 2026-11-03: the outside beyond these exits showed the other scenery set up around the building, so the glass is frosted (bright, milky) and nothing is built beyond it
+   pl(1.95,2.6,frostM,xe+s*.01,Y0+1.3,-17.53,Math.PI/2);pl(1.95,2.6,frostM,xe+s*.01,Y0+1.3,-15.58,Math.PI/2);
    const ex=pl(.6,.22,sgnM(exT),xe-s*.1,Y0+2.85,-16.55,-s*Math.PI/2);});}
 
  // ---- side corridors and stair halls (vestibules): the halls' west wall at x 16.6 with the white double doors (IMG_1232-1234, 1239)
@@ -3183,7 +3182,7 @@ function buildLobby(){let API;
  function outPre(now){const st=inside?'in':'door';if(st!==outState||outKey[st]!==outKeyNow()){if(outKey[st]===outKeyNow()||captureOut(st,now))outState=st;outBg.material.uniforms.cube.value=outRTs[st].texture;outBg.visible=true;sky.mesh.visible=false;}outT=now;outBg.position.copy(C.position);C.layers.set(inside?0:1);}
  const EY=1.7,EY2=MZ+.25+1.7,EYB=B1Y+1.7;
  const spots=[
-  {n:'로비',m:[0,0,12],v:[0,EY,12],lv:0,h:0,pi:.14,t:'1층 로비예요. 바닥의 동그라미를 누르면 그곳으로 걸어가고, 드래그하면 위아래까지 둘러볼 수 있어요.'},
+  {n:'로비',m:[0,0,12],v:[0,EY,12],lv:0,h:0,pi:.14,t:'1층 로비예요. 드래그하면 위아래까지 둘러볼 수 있어요.'},
   {n:'좌석발급기',m:[-12.5,0,16.6],v:[-12.5,EY,15],lv:0,h:Math.PI,pi:-.18,t:'입구 왼쪽 벽 앞의 좌석발급기 세 대예요. 하얀 기둥 모양 기계의 리더기에 학생증을 대고 옆 화면에서 열람실 자리를 고르면 좌석표가 나와요. 학교 통합앱의 모바일 학생증으로도 발급할 수 있고, 도서관 앱으로는 발급기에 오지 않아도 원격으로 자리를 발급받을 수 있어요. 바로 옆엔 소음허용공간 안내 화면과 행사 배너가 서 있어요.'},
   {n:'무인 프린터',m:[-20.2,0,16.4],v:[-18.4,EY,15.8],lv:0,h:Math.PI+.32,pi:-.12,t:'창문 옆의 무인 프린터예요. 위 화면을 보며 터치 화면에서 파일을 고르고 학생증으로 결제하면 바로 출력돼요. 24시간 쓸 수 있어요.'},
   {n:'사물함',m:[26.2,0,14.2],v:[20.6,EY,15.0],lv:0,h:1.68,pi:-.06,t:'벗터열람실 게이트와 정문 쪽 벽 사이에 사물함이 세 줄 있어요. 벽에 붙은 낮은 줄, 가운데 줄, 로비 쪽의 가장 큰 줄이에요. 가운데 줄과 큰 줄의 게이트 쪽 끝에 있는 흰 기계에서 학생증으로 빈 칸을 고르면 열려요. 창가엔 파란 소파와 둥근 테이블이 있어요.'},
@@ -3417,7 +3416,7 @@ function buildLobby(){let API;
  const NAV={res:.2,x0:-36,x1:63,z0:-31,z1:33,lo:.3,hi:1.75,rad:.22,rrad:.45,flat:[0,SL1,B1Y],
   levels:[(x,z)=>lbFree.ground(x,z,0),(x,z)=>{const g=lbFree.ground(x,z,SL1);return g>4?g:null;},(x,z)=>{const g=lbFree.ground(x,z,B1Y);return g<-1?g:null;}],
   clear:lanes.concat([[0,-6,-1.6,17.6,22.4],[0,1.6,6,17.6,22.4]])};
- return API={S,C,hasMode:false,interior:true,bake:true,nav:NAV,hint:'동그라미를 누르면 그곳으로 걸어가요 · 드래그해서 360° 둘러보기',
+ return API={S,C,hasMode:false,interior:true,bake:true,nav:NAV,hint:'드래그해서 360° 둘러보기',
   pre(now){sky.mesh.position.copy(C.position);outPre(now||performance.now());R.toneMappingExposure=.54;},
   warmOut(){const n=performance.now();['door','in'].forEach(s=>{if(outKey[s]!==outKeyNow())captureOut(s,n);});outState='';warmRefl();},
   map:{b:[-33,33,-27,37],draw:P=>rect(P,-23.2,-17.85,-24.35,-21.1,'mc')+rect(P,-17.85,-14.6,-26,-20,'mc')+rect(P,-19.45,-17.85,-25.6,-24.5,'mk')+rect(P,21,23.6,-25.5,-20,'mc')+rect(P,-30,30,21,24.5,'ms')+rect(P,-14,14,24.5,36.5,'ms')+rect(P,-30,30,-20,20,'mc')+rect(P,-18.9,18.9,-20,-12.2,'mz')+rect(P,-30,-18.9,-20,.2,'mz')+rect(P,18.9,30,-20,.2,'mz')+rect(P,-30,-21,-12.1,-4.8,'mb')+rect(P,21,30,-12.1,-4.8,'mb')+COLS.map(c=>circ(P,c[0],c[1],1.2,'mk')).join('')+rect(P,-14.6,-10.5,18.9,20,'mk')+rect(P,-20.1,-19.1,18.9,20,'mk')+rect(P,27,30,11.6,19.3,'mk')+rect(P,-6,6,20,21,'mw'),
@@ -3438,7 +3437,7 @@ function buildLobby(){let API;
   next(){if(anim)return;if(!inside){fadeDo(()=>{inside=true;pos.set(0,EY,17.6);head=0;pitch=.1;yaw=pyaw=0;tour=0;walkTo(V(...spots[0].v),0,0,.14,spots[0].t,null);setBtn('다음 장소');});return;}
    if(tour>=spots.length-1){switchTo(1);return;}goSpot(tour+1);},
   look(dx,dy){yaw+=dx*.005;pyaw=Math.max(-2.2-pitch,Math.min(2.6-pitch,pyaw-dy*.007));},
-  tap(mv){if(!inside||anim||pend||(typeof FREE!=='undefined'&&FREE)||(window.TOUR&&TOUR.on))return;ray.setFromCamera(mv,C);const hm=ray.intersectObjects(markers.filter(m=>!m.isSprite&&((spots[m.userData.i].lv<0)===(lvl<0))));if(hm.length){pushHist();goSpot(hm[0].object.userData.i);return;}if(Math.abs(pos.x)>(lvl<0?33:30.6))return;
+  tap(mv){return;/* tap-to-move removed (user 2026-11-03): move only by free walk, follow-walk, tours or the map */if(!inside||anim||pend)return;ray.setFromCamera(mv,C);const hm=ray.intersectObjects(markers.filter(m=>!m.isSprite&&((spots[m.userData.i].lv<0)===(lvl<0))));if(hm.length){pushHist();goSpot(hm[0].object.userData.i);return;}if(Math.abs(pos.x)>(lvl<0?33:30.6))return;
    const hs=ray.intersectObjects(lvl<0?[b1Fl]:[mzTop,fl]);if(!hs.length)return;const o=hs[0].object,p=hs[0].point;{const lv=o===fl?0:o===mzTop?1:-1,k=spots.findIndex(q=>q.lv===lv&&Math.hypot(q.m[0]-p.x,q.m[2]-p.z)<1.7);if(k>=0&&k!==tour){pushHist();goSpot(k);return;}}
    if(o===b1Fl){if(inB1(p.x,p.z))walkTo(V(p.x,EYB,p.z),-1,undefined,.04,null);}
    else if(o===fl){let tx=Math.max(-27.5,Math.min(27.5,p.x)),tz=Math.max(-18.6,Math.min(18,p.z));if(Math.abs(tx)>20.6&&tz>-12.3&&tz<-4.4)tx=Math.sign(tx)*19.8;walkTo(V(tx,EY,tz),0,undefined,.12,null);}
@@ -3854,10 +3853,10 @@ FS.onclick=()=>{try{const d=document,el=d.documentElement;if(d.fullscreenElement
 document.addEventListener('fullscreenchange',()=>{FS.textContent=document.fullscreenElement?'전체 화면 닫기':'전체 화면';});
 let drag=false,px=0,py=0,sx=0,sy=0,st=0;const mv=new THREE.Vector2();
 canvas.addEventListener('pointerdown',e=>{drag=true;px=sx=e.clientX;py=sy=e.clientY;st=performance.now();canvas.setPointerCapture(e.pointerId);});
-canvas.addEventListener('pointermove',e=>{if(!drag||!active)return;active.look(e.clientX-px,e.clientY-py);px=e.clientX;py=e.clientY;});
+canvas.addEventListener('pointermove',e=>{if(!drag||!active||(window.TOUR&&TOUR.on))return;active.look(e.clientX-px,e.clientY-py);px=e.clientX;py=e.clientY;});
 canvas.addEventListener('pointerup',e=>{drag=false;if(active&&active.tap&&Math.hypot(e.clientX-sx,e.clientY-sy)<8&&performance.now()-st<450){const r=canvas.getBoundingClientRect();mv.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);active.tap(mv);}});
-canvas.addEventListener('wheel',e=>{e.preventDefault();if(!active)return;zoomMul=Math.max(.6,Math.min(1.15,zoomMul+e.deltaY*.0006));applyFov(active.C);},{passive:false});
-addEventListener('keydown',e=>{if(!active)return;const k={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-20],ArrowDown:[0,20]}[e.key];if(k)active.look(k[0],k[1]);});
+canvas.addEventListener('wheel',e=>{e.preventDefault();if(!active||(window.TOUR&&TOUR.on))return;zoomMul=Math.max(.6,Math.min(1.15,zoomMul+e.deltaY*.0006));applyFov(active.C);},{passive:false});
+addEventListener('keydown',e=>{if(!active||(window.TOUR&&TOUR.on))return;const k={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-20],ArrowDown:[0,20]}[e.key];if(k)active.look(k[0],k[1]);});
 let zoomMul=1;function applyFov(C){const a=aspect();const v=2*Math.atan(Math.tan(38*Math.PI/180)/a)*180/Math.PI;C.fov=Math.max(50,Math.min(68,v))*zoomMul;C.aspect=a;C.updateProjectionMatrix();}
 function fit(){R.setSize(P.clientWidth,P.clientHeight);scenes.forEach(s=>{if(s)applyFov(s.C);});}
 addEventListener('resize',fit);new ResizeObserver(fit).observe(P);
@@ -4190,7 +4189,7 @@ mvZoom=function(s,cx,cy){const v=MAPV,p=cx!==undefined&&mvClose()<.05?mvPick(cx,
  function nm(t,i){return t.z===1?(PLZ_STOPS[t.list[i]]||{}).n:(LOB_SPOTS[t.list[i]]||{}).n;}
  function prog(){const t=T.t;const nm=t.z===1?(PLZ_STOPS[t.list[T.i]]||{}).n:(LOB_SPOTS[t.list[T.i]]||{}).n;PROG.textContent=`${t.n} 투어 · ${nm||''} (${T.i+1}/${t.list.length})`;PROG.classList.add('on');}
  function start(t,from){if(switching)return;if(typeof FREE!=='undefined'&&FREE)setFree(false);menu(false);const res=from!=null;mapTourHide=true;renderMap();T.on=true;T.st=performance.now();T.paused=false;T.t=t;T.i=res?from:0;T.first=!res;T.intro=!res&&t.k==='f1'&&LOB_SPOTS[0]?2:0;T.ph='go';label();
-  HINT.textContent='투어 중이에요 · 드래그해서 둘러볼 수 있어요';const k=t.list[T.i];
+  HINT.textContent='투어 중이에요 · 직접 둘러보려면 자유 이동을 눌러 보세요';const k=t.list[T.i];
   // paused while looking and not moved since: carry on from right here, no jump
   if(res&&T.still&&!MAPV.on&&ai===t.z&&T.pp&&cp().distanceTo(T.pp)<.3){T.ph='walk';T.until=performance.now()+300;prog();return;}
   // 1F tour (user): starts exactly like '도서관 안으로' — in through the revolving door, a few steps in, a turn back to the plaza
