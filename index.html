@@ -3241,7 +3241,7 @@ function buildLobby(){let API;
  const wfM=new THREE.MeshBasicMaterial({map:chevT,transparent:true,opacity:.92,depthWrite:false,toneMapped:false,fog:false,polygonOffset:true,polygonOffsetFactor:-4,side:THREE.DoubleSide});
  const wfRingM=new THREE.MeshBasicMaterial({color:new THREE.Color(0x1a73e8).convertSRGBToLinear(),transparent:true,opacity:.85,depthWrite:false,toneMapped:false,side:THREE.DoubleSide});
  let wfSel=null,wfDest=null;
- window.wfLive=()=>!!wfDest;window.WFNAME=null;window.wfDestP=()=>wfDest&&wfDest.position;function wfClear(){while(wfG.children.length){const o=wfG.children.pop();if(o.geometry)o.geometry.dispose();if(o.material&&o.material!==wfM&&o.material!==wfRingM){if(o.material.map)o.material.map.dispose();o.material.dispose();}}wfSel=null;wfDest=null;WFR.hidden=true;window.WFSELF=false;window.WFNAME=null;if(typeof wfMode==='function'&&wfWalking)wfMode(false);}
+ window.wfLive=()=>!!wfDest;window.WFNAME=null;window.wfDestP=()=>wfDest&&wfDest.position;function wfClear(){while(wfG.children.length){const o=wfG.children.pop();if(o.geometry)o.geometry.dispose();if(o.material&&o.material!==wfM&&o.material!==wfRingM){if(o.material.map)o.material.map.dispose();o.material.dispose();}}wfSel=null;wfDest=null;WFR.hidden=true;window.WFSELF=false;window.WFNAME=null;if(typeof wfMode==='function'&&wfWalking)wfMode(false);{const pn=document.getElementById('panel');if(pn&&(typeof WFP==='undefined'||WFP.hidden))pn.classList.remove('wfon');}}
  function wfDraw(F){wfClear();wfSel=F;window.WFNAME=F.n;const pts=planPath(V(...F.to),F.lv);const P=[],U=[],I=[];let acc=0,w=.42;
   for(let k=1;k<pts.length;k++){const a=pts[k-1],b=pts[k];const ga=V(a.x,a.y-EY+.07,a.z),gb=V(b.x,b.y-EY+.07,b.z);const d=V(gb.x-ga.x,0,gb.z-ga.z);const L=gb.distanceTo(ga);if(L<.05)continue;d.normalize();const sx=-d.z*w,sz=d.x*w;const n=P.length/3;
    P.push(ga.x+sx,ga.y,ga.z+sz,ga.x-sx,ga.y,ga.z-sz,gb.x+sx,gb.y,gb.z+sz,gb.x-sx,gb.y,gb.z-sz);U.push(0,acc/.9,1,acc/.9,0,(acc+L)/.9,1,(acc+L)/.9);I.push(n,n+2,n+1,n+1,n+2,n+3);acc+=L;}
@@ -3285,7 +3285,7 @@ function buildLobby(){let API;
  WFR.querySelector('[data-a=other]').onclick=()=>wfShow(true);
  // walk it yourself (user 2026-10-29): the blue route stays on the floor, free walk takes over; reaching the ring says you're there
  WFR.querySelector('[data-a=self]').onclick=()=>{if(!wfSel||anim)return;WFR.hidden=true;PN.classList.remove('wfon');setFree(true);window.WFSELF=true;HINT.textContent='바닥의 파란 길을 따라 직접 걸어가 보세요';say(`파란 길을 따라 ${wfSel.n}까지 직접 걸어가 보세요. 도착하면 알려 드릴게요.`);};
- setInterval(()=>{if(typeof FREE==='undefined'||!FREE||!wfDest||!wfSel||active!==API)return;const r=wfDest.position;if(Math.hypot(pos.x-r.x,pos.z-r.z)<1.8&&Math.abs(pos.y-EY-r.y)<1.2){const F=wfSel;say(F.t||`${F.n}에 도착했어요.`);wfClear();HINT.textContent=FREE_HINT;}},250);
+ setInterval(()=>{if(typeof FREE==='undefined'||!FREE||!window.WFSELF||wfWalking||!wfDest||!wfSel||active!==API)return;const r=wfDest.position;if(Math.hypot(pos.x-r.x,pos.z-r.z)<1.8&&Math.abs(pos.y-EY-r.y)<1.2){const F=wfSel;say(F.t||`${F.n}에 도착했어요.`);wfClear();HINT.textContent=FREE_HINT;}},250);
  WFR.querySelector('[data-a=go]').onclick=()=>{const F=wfSel;if(!F||anim||pend)return;pushHist();tour=-1;window.WFWALK=true;wfStopReq=null;wfMode(true);{const sb=WFR.querySelector('[data-a=stop]');sb.disabled=false;sb.textContent='■ 따라 걷기 멈추기';}
  // the gated reading rooms: walk through the opening gate and door into the room (user 2026-10-29)
  const RN={'제1열람실':'제1열람실 안','벗터열람실':'벗터 안','혜윰열람실':'혜윰열람실 안','제2열람실':'제2열람실 안'},k=RN[F.n]?spots.findIndex(q=>q.n===RN[F.n]):-1;if(k>=0){wfShow(false);inside=true;goSpot(k);return;}
@@ -3438,14 +3438,14 @@ function buildLobby(){let API;
   next(){if(anim)return;if(!inside){fadeDo(()=>{inside=true;pos.set(0,EY,17.6);head=0;pitch=.1;yaw=pyaw=0;tour=0;walkTo(V(...spots[0].v),0,0,.14,spots[0].t,null);setBtn('다음 장소');});return;}
    if(tour>=spots.length-1){switchTo(1);return;}goSpot(tour+1);},
   look(dx,dy){yaw+=dx*.005;pyaw=Math.max(-2.2-pitch,Math.min(2.6-pitch,pyaw-dy*.007));},
-  tap(mv){if(!inside||anim)return;ray.setFromCamera(mv,C);const hm=ray.intersectObjects(markers.filter(m=>!m.isSprite&&((spots[m.userData.i].lv<0)===(lvl<0))));if(hm.length){pushHist();goSpot(hm[0].object.userData.i);return;}if(Math.abs(pos.x)>(lvl<0?33:30.6))return;
+  tap(mv){if(!inside||anim||pend||(typeof FREE!=='undefined'&&FREE)||(window.TOUR&&TOUR.on))return;ray.setFromCamera(mv,C);const hm=ray.intersectObjects(markers.filter(m=>!m.isSprite&&((spots[m.userData.i].lv<0)===(lvl<0))));if(hm.length){pushHist();goSpot(hm[0].object.userData.i);return;}if(Math.abs(pos.x)>(lvl<0?33:30.6))return;
    const hs=ray.intersectObjects(lvl<0?[b1Fl]:[mzTop,fl]);if(!hs.length)return;const o=hs[0].object,p=hs[0].point;{const lv=o===fl?0:o===mzTop?1:-1,k=spots.findIndex(q=>q.lv===lv&&Math.hypot(q.m[0]-p.x,q.m[2]-p.z)<1.7);if(k>=0&&k!==tour){pushHist();goSpot(k);return;}}
    if(o===b1Fl){if(inB1(p.x,p.z))walkTo(V(p.x,EYB,p.z),-1,undefined,.04,null);}
    else if(o===fl){let tx=Math.max(-27.5,Math.min(27.5,p.x)),tz=Math.max(-18.6,Math.min(18,p.z));if(Math.abs(tx)>20.6&&tz>-12.3&&tz<-4.4)tx=Math.sign(tx)*19.8;walkTo(V(tx,EY,tz),0,undefined,.12,null);}
    else{let tx=Math.max(-29,Math.min(29,p.x)),tz=Math.max(-19.4,Math.min(-.3,p.z));const ax=Math.abs(tx),s=Math.sign(tx)||1;if(ax<19.5&&tz>-13)tz=-13;if(ax>20.5&&tz>-12.3&&tz<-4.4)tx=s*20;if(!inSlab(tx,tz))tx=s*Math.max(20,Math.abs(tx));walkTo(V(tx,EY2,tz),1,undefined,-.25,null);}},
   frame(now){const s=now*.001;markers.forEach(m=>{m.visible=!m.isSprite&&!(inside&&!anim&&m.userData.i===tour);});// floor circles only: the place name shows when you arrive (user)
    if(!reduce)wings.forEach((w,i)=>w.rotation.y=s*.35*(i?1:-1));ringM.opacity=.5+Math.sin(s*2.5)*.25;
-   if(spin&&!anim){const t=(now-spin.t0)/1000;if(t>=0){const a=cl(t/(reduce?.1:2.8)),b=cl((t-(reduce?.1:3.0))/(reduce?.1:2.8));pos.set(0,EY,19.2-17.2*ez(a));head=la(0,Math.PI,ez(b));pitch=.1+.1*ez(b);if(b>=1){spin=null;head=Math.PI;}}}
+   if(spin&&!anim){const t=(now-spin.t0)/1000;if(t>=0){const a=cl(t/(reduce?.1:2.8)),b=cl((t-(reduce?.1:3.0))/(reduce?.1:2.8));pos.set(0,EY,19.2-17.2*ez(a));head=la(0,Math.PI,ez(b));pitch=.1+.1*ez(b);if(b>=1){spin=null;head=Math.PI;if(!(window.TOUR&&TOUR.on)&&typeof FREE!=='undefined'&&!FREE&&active===API&&typeof setFree==='function')setFree(true);}}}
    const _h0=head,_wa=!!anim;
    if(anim){if(anim.lf!==undefined&&now-anim.lf>250)anim.t0+=now-anim.lf-50;anim.lf=now;/* a long hitch pauses the walk instead of skipping it */const t=cl((now-anim.t0)/anim.d),e=anim.lin?wfProf(t,anim.d/1000):ez(t),dist=e*anim.tot;const np=posAt(anim,dist);let ahead=posAt(anim,dist+2.6);
     // a tight turn (switchback stairs, a door right after a corner): the 2.6 m point would sit behind a wall, so look nearer along the route
@@ -3460,7 +3460,7 @@ function buildLobby(){let API;
     if(anim.w0===undefined){const tn=a=>Math.abs(Math.atan2(Math.sin(a),Math.cos(a)));anim.w0=Math.min(.35,Math.max(.1,(300+tn(anim.hw-anim.h0)*700)/anim.d));}
     const hA=la(anim.h0,anim.hs,ez(cl(t/anim.w0)));head=anim.h1===undefined?hA:la(hA,anim.h1,ez(cl(1-(anim.tot-dist)/2.2)));pitch=anim.pi0+(anim.pi1-anim.pi0)*e;
     if(t<1&&wfStopReq&&anim.lin&&wfSafe(np)){pos.y=np.y;wfHaltNow();}
-    else if(t>=1){lvl=anim.tl;if(anim.h1!==undefined)head=anim.h1;say(anim.text);const dn=anim.done;anim=null;if(dn)dn();if(!anim&&!pend){const was=window.WFWALK;window.WFWALK=false;if(was&&wfWalking)wfArrive();}}}
+    else if(t>=1){lvl=anim.tl;if(anim.h1!==undefined)head=anim.h1;say(anim.text);const dn=anim.done;anim=null;if(dn)dn();if(!anim&&!pend){const was=window.WFWALK;window.WFWALK=false;if(was)wfArrive();}}}
    // on a tour the view never swings faster than ~70°/s: the heading chases where the walk wants to look
    {const dt=Math.min(.05,(now-(hChase.t||now))/1000);hChase.t=now;if(!_wa&&hChase.v!==null&&Math.abs(Math.atan2(Math.sin(head-_h0),Math.cos(head-_h0)))>.3)hChase.v=null;
     if(!reduce&&(_wa||hChase.v!==null)){const tg=_wa?head:hChase.v;let d=Math.atan2(Math.sin(tg-_h0),Math.cos(tg-_h0));const lim=(window.TOUR&&TOUR.on?.9:window.WFWALK?2.2:1.4)*dt;if(Math.abs(d)>lim){head=_h0+Math.sign(d)*lim;hChase.v=tg;}else{head=tg;hChase.v=null;}}else hChase.v=null;}
@@ -3838,6 +3838,8 @@ let joyId=null;function joySet(e){const r=JOY.getBoundingClientRect(),cx=r.left+
 JOY.addEventListener('pointerdown',e=>{joyId=e.pointerId;JOY.setPointerCapture(e.pointerId);joySet(e);});JOY.addEventListener('pointermove',e=>{if(e.pointerId===joyId)joySet(e);});
 const joyEnd=e=>{if(e.pointerId!==joyId)return;joyId=null;jx=jy=0;KN.style.transform='';};JOY.addEventListener('pointerup',joyEnd);JOY.addEventListener('pointercancel',joyEnd);
 let fPrev=0;function freeStep(now){const dt=Math.min(.05,fPrev?(now-fPrev)/1000:.016);fPrev=now;if(!FREE||!active||!active.free||switching)return;const P=active.pos,F=active.free;
+ /* a follow-walk or a door walk is moving you: let it, and pick up the floor you end on (it used to pull you back to the old floor) */
+ if(window.WFWALK&&active.busy&&active.busy()){freeG=P.y-1.7;lastP.copy(P);return;}
  if(P.distanceTo(lastP)>6)freeG=P.y-1.7;
  const f=((keys.w||keys.arrowup)?1:0)-((keys.s||keys.arrowdown)?1:0)+jy,st=(keys.d?1:0)-(keys.a?1:0)+jx,tr=(keys.arrowright?1:0)-(keys.arrowleft?1:0);
  if(tr)active.turn(tr*1.9*dt);const moving=Math.abs(f)>.05||Math.abs(st)>.05;
