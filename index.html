@@ -1170,7 +1170,7 @@ vec3 aged(vec3 c){vec3 p=vWP;float side=1.-abs(vWN.y);float u=p.x*abs(vWN.z)+p.z
   {path:[[0,1.7,180]],h:0,pi:.07,t:'일곱 개의 아치 너머로 중앙도서관이 보여요. 사색의광장으로 들어가 볼까요?',b:'아치로 걸어가기'},
   {path:[[7,1.7,166],[0,1.7,151.5]],h:0,pi:.3,dur:6000,t:'아치 안쪽을 따라 빛이 흘러요. 해가 지면 일곱 개의 아치가 하나씩 빛나는 길이 돼요.',b:'광장 안으로'},
   {path:[[0,1.7,147],[0,1.7,141.6],[0,2.9,137.8]],h:0,pi:-.07,lift:.8,piAdj:.03,fx:'reflect',dur:3200,t:'분수가 멈춰 있을 때면 연못이 거울이 되어 중앙도서관을 그대로 비춰요.',t2:'이제 분수가 솟아올라요. 물결 사이로 도서관이 일렁이며 비쳐요.',b:'조각상과 연못으로'},
-  {path:[[0,1.7,137],[-17,1.7,132],[-17,1.7,87],[-11,1.7,83.5]],h:2.5,pi:.03,t:'생각하는 사람 조각상과 연꽃 모양 분수가 있는 연못이에요. 받침돌에는 “생각하라, 그 속에 모든 답이 있다”라고 새겨져 있어요.',b:'도서관으로'},
+  {path:[[0,1.7,137],[-17,1.7,132],[-17,1.7,84],[-4,1.7,80]],h:2.75,pi:-.05,t:'생각하는 사람 조각상과 연꽃 모양 분수가 있는 연못이에요. 받침돌에는 “생각하라, 그 속에 모든 답이 있다”라고 새겨져 있어요.',b:'도서관으로'},
   {path:[[-6,1.7,79],[0,1.7,70],[0,1.7,42]],h:0,pi:.3,t:'광장 끝에는 중앙도서관이 웅장하게 서 있어요.',b:'계단 오르기'},
   {path:[[0,6.7,14.5]],h:Math.PI,pi:-.05,t:'계단 위에서 돌아보면 사색의광장이 한눈에 펼쳐져요.',b:'도서관 안으로'}];
  ['사색의광장 입구','일곱 아치','분수 연못','생각하는 사람 조각상','중앙도서관 앞','도서관 계단 위'].forEach((n,i)=>stops[i].n=n);window.PLZ_STOPS=stops;// names for the place chip
@@ -1206,7 +1206,7 @@ vec3 aged(vec3 c){vec3 p=vWP;float side=1.-abs(vWN.y);float u=p.x*abs(vWN.z)+p.z
     {id:'pond',n:'분수 연못',cat:'연못 · 분수',ic:'drop',col:'#1e88c8',x:0,y:3,z:114,k:'sub',stop:2,to:3,view:{d:75,tilt:.7},t:stops[2].t},
     {id:'thinker',n:'생각하는 사람 조각상',cat:'조각상',ic:'statue',col:'#7b5ea7',x:0,y:4.5,z:89.1,k:'sub',stop:3,to:6,view:{d:55,tilt:.6},t:stops[3].t}]},
   map:{b:[-60,60,-20,228],draw:P=>rect(P,-56,56,5,221,'ms')+lawnR.map(l=>rect(P,l[0],l[1],l[2],l[3],'mg')+rect(P,-l[1],-l[0],l[2],l[3],'mg')).join('')+rect(P,-47,47,-15,14,'mb')+rect(P,-14,14,14,28.4,'mc')+rect(P,-16,16,109.5,130,'mw')+circ(P,0,108,2.2,'mk')+rect(P,-21,21,139,141,'mk')+rect(P,-31.5,-18.5,171.5,184.5,'mb')+circ(P,-25,178,2.6,'mk')+rect(P,18.5,31.5,171.5,184.5,'mb')+circ(P,25,178,2.6,'mk')+rect(P,-9,9,189,220.5,'mg')+rect(P,13,26,203,220.5,'mg')+rect(P,-26,-13,203,220.5,'mg')+rect(P,38,55.6,150,212,'mg')+rect(P,-55.6,-38,150,212,'mg')+rect(P,-56,56,221.6,226,'ms')+rect(P,-50.5,-45.5,36,136,'mz')+rect(P,45.5,50.5,36,136,'mz'),
-   pts:[{n:'아치 바깥',x:0,z:180},{n:'빛나는 아치',x:0,z:150},{n:'연못에 비친 도서관',x:0,z:137.8,left:true},{n:'조각상 · 연못',x:-11,z:83.5,left:true},{n:'도서관 앞',x:0,z:42},{n:'계단 위',x:0,z:20},{n:'도서관 안으로',x:0,z:-4,zone:2}]},
+   pts:[{n:'아치 바깥',x:0,z:180},{n:'빛나는 아치',x:0,z:150},{n:'연못에 비친 도서관',x:0,z:137.8,left:true},{n:'조각상 · 연못',x:-4,z:80,left:true},{n:'도서관 앞',x:0,z:42},{n:'계단 위',x:0,z:20},{n:'도서관 안으로',x:0,z:-4,zone:2}]},
   where(){return cur;},busy(){return !!anim||pChase.v!==null;},cam(x,y,z,h,p){anim=null;pos.set(x,y,z);head=h;pitch=p;yaw=pyaw=0;hush();},
   pos,hd(){return head+yaw;},turn(d){yaw+=d;},halt(){anim=null;},spots(){return stops.map(s=>{const p=s.path[s.path.length-1];return{x:p[0],y:p[1],z:p[2],t:s.t};});},free:plazaFree,
   me(){return{x:pos.x,z:pos.z,h:head+yaw};},
