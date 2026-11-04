@@ -30,6 +30,11 @@ button:focus-visible{outline:3px solid #ffd27a;outline-offset:2px}
 #map.collapsed{background:transparent;border-color:transparent}
 #mapHead{display:flex;align-items:center;gap:6px;padding:6px}
 #tm.dn{padding:6px 12px;font-size:14px;border-width:1.5px;margin-left:auto;background:#2b3a66;color:#fffaf0;border-color:#2b3a66}#tm.dn.day{background:#ffe9a8;color:#4a3b2a;border-color:#c9a24a}
+#panel #map #tm.dn{border-color:#a98bff;box-shadow:0 0 4px rgba(169,139,255,.75),0 0 11px rgba(140,104,255,.35),inset 0 0 4px rgba(190,165,255,.3);animation:tmNeon 10s ease-in-out infinite}
+#panel #map #tm.dn.day{border-color:#ffcf3a;box-shadow:0 0 4px rgba(255,207,58,.85),0 0 11px rgba(255,190,30,.4),inset 0 0 4px rgba(255,230,140,.45);animation-name:tmNeonY}
+@keyframes tmNeon{0%,32%,100%{box-shadow:0 0 4px rgba(169,139,255,.75),0 0 11px rgba(140,104,255,.35),inset 0 0 4px rgba(190,165,255,.3)}16%{box-shadow:0 0 6px rgba(169,139,255,.9),0 0 16px rgba(140,104,255,.48),inset 0 0 5px rgba(190,165,255,.38)}}
+@keyframes tmNeonY{0%,32%,100%{box-shadow:0 0 4px rgba(255,207,58,.85),0 0 11px rgba(255,190,30,.4),inset 0 0 4px rgba(255,230,140,.45)}16%{box-shadow:0 0 6px rgba(255,207,58,1),0 0 16px rgba(255,190,30,.52),inset 0 0 5px rgba(255,230,140,.55)}}
+@media (prefers-reduced-motion:reduce){#panel #map #tm.dn{animation:none}}
 #back:disabled{opacity:.6;cursor:default}
 #mapToggle{padding:6px 14px;font-size:14px;border-width:1.5px}
 #map .tabs{display:flex;gap:4px}
@@ -104,7 +109,7 @@ button:focus-visible{outline:3px solid #ffd27a;outline-offset:2px}
 #mcgo{display:none!important}#panel.mapmode #mlab{display:none!important}#mcst{background:#1a73e8!important;color:#fff!important;border-color:#1a73e8!important}#mcst svg{stroke:#fff!important}
 #mctl .rg{display:flex;flex-direction:column;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.28);overflow:hidden}#mctl .rg button{box-shadow:none;border-radius:0;touch-action:none}#mctl .rg button+button{border-top:1px solid #e3e3e3}#mctl .rg svg{width:22px;height:22px;fill:none;stroke:#3c4043;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}#mctl #mtilt{font:700 14px/1 'Noto Sans KR',sans-serif;letter-spacing:.02em}#mctl button:active{background:#eef3fd}#mcomp{touch-action:none;cursor:grab}
 .cwrap .cb .fp,#csvg .cb .fp{opacity:.45}.ctext.soon{opacity:.5}
-</style>
+@font-face{font-family:'KHUPen';src:url(data:font/woff;base64,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) format('woff');}#nhint{position:absolute;z-index:7;pointer-events:none;display:none;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.55)) drop-shadow(0 0 6px rgba(0,0,0,.25))}#nhint svg{display:block;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}#nhint span{display:inline-block;margin:-2px 0 0 52px;color:#fff;font:400 31px/1 'KHUPen',cursive;white-space:nowrap;background:rgba(30,22,15,.62);padding:5px 12px 7px;border-radius:14px}@media (hover:hover) and (pointer:fine){#nhint svg{width:94px;height:72px}#nhint span{font-size:26px;margin:-2px 0 0 44px;padding:4px 10px 6px;border-radius:12px}}</style>
 </head>
 <body>
 <div id="panel">
@@ -439,7 +444,7 @@ vec3 aged(vec3 c){vec3 p=vWP;float side=1.-abs(vWN.y);float u=p.x*abs(vWN.z)+p.z
  const tn=fbm(128,6,4,77);const tN=(x,z)=>{const i=((Math.floor(z/12)%128+128)%128)*128+((Math.floor(x/12)%128+128)%128);return tn[i];};
  const sm=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
  // flat terraces under the neighbours, the road and the parking: [x0,x1,z0,z1,height,blend margin]
- const PADS=[[-300,300,224,246,0,14],[-90,102,224,522,0,16],[100,200,346,458,0,18],[-266,-142,282,350,2,18],[-150,-92,100,144,10,18],[-252,-204,134,184,10,26],[96,156,-56,46,0,18],[100,196,124,218,0,18],[150,222,-60,6,0,18],[204,276,6,56,0,18],
+ const PADS=[[-300,300,224,246,0,14],[-90,102,224,522,0,16],[100,200,346,458,0,18],[-266,-142,282,350,2,18],[-150,-92,100,144,10,18],[-252,-204,134,184,10,26],[96,166,-64,48,0,18],[98,168,122,200,0,18],[134,222,0,72,0,18],[218,290,0,54,0,18],
   [80,97,14,240,0,12],[80,345,108,125,0,12],[238,334,150,272,0,18],[-372,-288,280,360,8,22],[50,83,-14,46,0,8],[83,101,3,43,1.05,7]];// v17: re-placed from the Naver aerial (2009, 선승관 kept): ① ② ③ ④ moved, roads along the south side, 생명과학대학관, 노천극장
  const FOOT=PADS.slice(2);
  function inPad(x,z,m=0){return PADS.some(p=>x>p[0]-m&&x<p[1]+m&&z>p[2]-m&&z<p[3]+m);}
@@ -970,7 +975,7 @@ vec3 aged(vec3 c){vec3 p=vWP;float side=1.-abs(vWN.y);float u=p.x*abs(vWN.z)+p.z
  // ribbon of 2F glass, 1F window walls either side of a bright glazed entrance under a deep projecting box canopy); set ~17 m behind
  // its front, the tower: a 16.5 m central slab of 3 strip-window floors (29 m) between two plain framed wings (left 6 m / 23 m,
  // right 7.5 m / 26 m), salmon tile with darker framed edges; 선승관's red-brick bell tower (user T2 = A) stands behind it on the right
- {const Y0=.95,PX=103,PZ0=6,PZ1=46,PH=10.55,TX0=120,TX1=136,ppm=14;
+ {const Y0=.95,PX=103,PZ0=6,PZ1=46,PH=10.55,TX0=120,TX1=148,ppm=14;
   const face=(key,W,H,draw)=>cached('shf'+key,()=>{const cw=Math.min(2048,Math.round(W*ppm)),ch=Math.min(2048,Math.round(H*ppm)),sx=cw/W,sy=ch/H,r=mkRnd(key.length*31+7);
    const c=cnv(cw,ch),g=c.getContext('2d'),e=cnv(cw,ch),eg=e.getContext('2d'),m=cnv(cw,ch),mg=m.getContext('2d');eg.fillStyle='#000';eg.fillRect(0,0,cw,ch);mg.fillStyle='rgb(0,205,0)';mg.fillRect(0,0,cw,ch);
    // R(u0,v0,u1,v1): metres from the bottom-left corner of the face as seen from outside
@@ -1043,38 +1048,35 @@ vec3 aged(vec3 c){vec3 p=vWP;float side=1.-abs(vWN.y);float u=p.x*abs(vWN.z)+p.z
    for(let y=2.5;y<BH-9;y+=3.2)[[-1,0],[1,0],[0,-1],[0,1]].forEach(([dx,dz])=>slab(dk,BX+dx*(BW/2)-(dx?.03:.35),BX+dx*(BW/2)+(dx?.03:.35),y0+y,y0+y+1.3,BZ+dz*(BW/2)-(dz?.03:.35),BZ+dz*(BW/2)+(dz?.03:.35)));
    const pr=new THREE.Mesh(new THREE.ConeGeometry(BW*.78,3.8,4,1),rf);pr.rotation.y=Math.PI/4;pr.position.set(BX,y0+BH+.45+1.9,BZ);cast(pr);surG.add(pr);
    const fn=new THREE.Mesh(new THREE.CylinderGeometry(.05,.08,1.2,6),rf);fn.position.set(BX,y0+BH+4.25+.6,BZ);surG.add(fn);}}
- // ---------- ④ 국제·경영대학관 (long pink block + taller west block — aerial ④, panorama 04)
- blk('igL',112,172,16,84,18,Object.assign({floors:5,bays:5,bD:24,style:'ribbon',hf:.48,seed:41,y:0,units:3,lobby:true,door:true},pinkT));
- blk('igS',180,172,16,84,18,Object.assign({floors:5,bays:5,bD:24,style:'ribbon',hf:.48,seed:43,y:0,units:3},pinkT));
- blk('igW',146,206,52,14,18,Object.assign({floors:5,bays:14,style:'ribbon',hf:.48,seed:44,y:0,units:2},pinkT));
- blk('igT',118,136,24,22,27,Object.assign({floors:7,bays:6,style:'punch',wf:.58,pil:1,seed:42,y:0,units:2},pinkT,{wall:'#c99482'}));
- // ---------- ⑤ round brick hall + clock tower with a green copper roof (aerial ⑤, panorama 02 far right)
- {const x=184,z=-28,R=26,H=13,y=0,f=facadeTex('rhB',2*Math.PI*R,H,{floors:2,bays:30,style:'arch',wf:.42,hf:.62,wall:'#9c4b3b',brick:true,plinth:1.2,top:2,topCol:'rgba(240,228,205,.95)',frame:'#e8dccb',glassT:'#6d7d8a',glassM:'#3a4652',glassB:'#232c34',seed:51,ppm:7});
+ // 학생회관 grown to the aerial footprint (user S2 = A, 2026-11-04; Naver 2009 aerial + campus map): the tower is 28 m deep (TX1 148), a
+ // 2-storey wing along the east side and a long low white annex behind it to the north, alongside the library (the photographed front is unchanged)
+ {const pod={wall:'#e8cdb9',band:'rgba(176,132,116,.45)',glassT:'#5f7c7a',glassM:'#2e4644',glassB:'#1f302f',frame:'#4b4f52',cope:0xb48670,style:'ribbon',hf:.42};
+  blk('shE',155.5,18,15,60,8.6,Object.assign({floors:2,bays:4,bD:16,seed:48,y:.85,units:2},pod));
+  blk('shA',126,-37,28,50,7.4,Object.assign({},pod,{wall:'#eeece6',band:'rgba(180,175,165,.4)',cope:0xd9d6cf,floors:2,bays:8,bD:14,seed:49,y:.85,units:3}));
+  // 선승관's brick front block between the bell tower and the round hall: the arched brick wall seen right of the tower in IMG_1100
+  blk('rhL',154,56,32,12,9,{floors:2,bays:8,bD:3,style:'arch',wf:.42,hf:.62,wall:'#9c4b3b',brick:true,plinth:1.2,top:1.4,topCol:'rgba(240,228,205,.95)',frame:'#e8dccb',glassT:'#6d7d8a',glassM:'#3a4652',glassB:'#232c34',cope:0xe8dccb,seed:54,y:0,units:0});}
+ // ---------- ④ 국제·경영대학관 (user S3 = A, 2026-11-04): ㄷ-shaped as in the 2009 aerials, about 56 x 66 m: a long block facing the plaza road,
+ // a north wing with the taller corner block, a south wing (pink, then a lower cream part, aerial 05), the courtyard open to the east
+ blk('igL',113,161,18,66,18,Object.assign({floors:5,bays:5,bD:20,style:'ribbon',hf:.48,seed:41,y:0,units:3,lobby:true,door:true},pinkT));
+ blk('igE',141,137,38,18,15,Object.assign({floors:4,bays:10,bD:5,style:'ribbon',hf:.48,seed:45,y:0,units:1},pinkT));
+ blk('igS',131,185,18,18,18,Object.assign({floors:5,bays:5,style:'ribbon',hf:.48,seed:43,y:0,units:1},pinkT));
+ blk('igW',150,185,20,18,14,Object.assign({floors:4,bays:6,style:'ribbon',hf:.5,seed:44,y:0,units:1},pinkT,{wall:'#e9e3d8',band:'rgba(170,160,150,.45)'}));
+ blk('igT',116,139,24,22,27,Object.assign({floors:7,bays:6,style:'punch',wf:.58,pil:1,seed:42,y:0,units:2},pinkT,{wall:'#c99482'}));
+ // ---------- ⑤ 선승관: round brick hall right behind 학생회관 (user S1 = B, 2026-11-04: aerial 05 + campus map); its tower is the bell tower above (IMG_1100)
+ {const x=190,z=36,R=27,H=13,y=0,f=facadeTex('rhB',2*Math.PI*R,H,{floors:2,bays:30,style:'arch',wf:.42,hf:.62,wall:'#9c4b3b',brick:true,plinth:1.2,top:2,topCol:'rgba(240,228,205,.95)',frame:'#e8dccb',glassT:'#6d7d8a',glassM:'#3a4652',glassB:'#232c34',seed:51,ppm:7});
   const bm=facMat(f),G=new THREE.Group();G.position.set(x,y,z);surG.add(G);
   const dr=new THREE.Mesh(new THREE.CylinderGeometry(R,R,H,64,1,true),bm);dr.userData.noBake=true;dr.position.y=H/2;cast(dr);G.add(dr);
   const sk=new THREE.Mesh(new THREE.CylinderGeometry(R-.05,R-.05,8,48),copeM(0x6f5a50));sk.position.y=-4;G.add(sk);
   const rf=new THREE.Mesh(new THREE.CylinderGeometry(R*.25,R+.8,4.5,64),pbr({color:0x3e434a,rough:.6,metal:.3}));rf.position.y=H+2.25;cast(rf);G.add(rf);
   const rim=new THREE.Mesh(new THREE.CylinderGeometry(R+.9,R+.9,.6,64),copeM(0xe8dccb));rim.position.y=H+.1;G.add(rim);
-  // clock tower on the plaza side
-  const tx=-R+4,tz=-R*.55,tw=7;const tf=facMat(facadeTex('rhT',tw,24,{floors:6,bays:1,style:'arch',wf:.32,hf:.6,wall:'#9a4a3a',brick:true,plinth:1,top:1.6,topCol:'rgba(240,228,205,.95)',frame:'#e8dccb',seed:52,lit:.2,ppm:14}));
-  const tw0=new THREE.Mesh(new THREE.BoxGeometry(tw,24,tw),[tf,tf,roofM,roofM,tf,tf]);tw0.position.set(tx,12,tz);tw0.userData.noBake=true;cast(tw0);G.add(tw0);
-  const clk=cached('clockFace',()=>{const c=cnv(256),g=c.getContext('2d');g.fillStyle='#f6f2e8';g.beginPath();g.arc(128,128,120,0,7);g.fill();g.lineWidth=10;g.strokeStyle='#2c2a28';g.stroke();g.fillStyle='#2c2a28';for(let k=0;k<12;k++){const a=k/12*Math.PI*2;g.save();g.translate(128,128);g.rotate(a);g.fillRect(-4,-110,8,k%3?16:26);g.restore();}
-   g.lineCap='round';g.lineWidth=10;g.beginPath();g.moveTo(128,128);g.lineTo(128+Math.cos(-1.1)*62,128+Math.sin(-1.1)*62);g.stroke();g.lineWidth=7;g.beginPath();g.moveTo(128,128);g.lineTo(128+Math.cos(.55)*92,128+Math.sin(.55)*92);g.stroke();return tex(c,true,false);});
-  const cm=new THREE.MeshStandardMaterial({map:clk,transparent:true,roughness:.4,emissive:lin(0xfff0d0),emissiveMap:clk,emissiveIntensity:0});SURM.push(cm);
-  [[0,0,tw/2+.03],[Math.PI/2,tw/2+.03,0],[Math.PI,0,-tw/2-.03],[-Math.PI/2,-tw/2-.03,0]].forEach(([ry,ox,oz])=>{const p=new THREE.Mesh(new THREE.CircleGeometry(2.2,40),cm);p.position.set(tx+ox,20,tz+oz);p.rotation.y=ry;p.userData.noBake=true;G.add(p);});
-  const gr=pbr({color:0x4f8e78,rough:.45,metal:.35});const cr=copeM(0xefe8da);
-  for(let k=0;k<8;k++){const a=k/8*Math.PI*2+Math.PI/8,p=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,3.2,10),cr);p.position.set(tx+Math.cos(a)*3,25.6,tz+Math.sin(a)*3);cast(p);G.add(p);}
-  const dk=new THREE.Mesh(new THREE.CylinderGeometry(3.8,3.8,.5,8),cr);dk.position.set(tx,24.2,tz);G.add(dk);const ev=new THREE.Mesh(new THREE.CylinderGeometry(3.9,3.9,.4,8),cr);ev.position.set(tx,27.3,tz);G.add(ev);
-  const rp=new THREE.Mesh(new THREE.ConeGeometry(4.6,4.2,8),gr);rp.position.set(tx,29.6,tz);rp.rotation.y=Math.PI/8;cast(rp);G.add(rp);const fin=new THREE.Mesh(new THREE.CylinderGeometry(.06,.14,1.6,8),brass);fin.position.set(tx,32.4,tz);G.add(fin);
   }
- blk('rhE',238,30,58,16,15,{floors:4,bays:16,style:'punch',wall:'#dacdaa',band:'rgba(170,150,110,.5)',seed:53,y:0,units:2,rot:-.35});
+ blk('rhE',252,26,58,16,15,{floors:4,bays:16,style:'punch',wall:'#dacdaa',band:'rgba(170,150,110,.5)',seed:53,y:0,units:2,rot:-.35});
  // ---------- ⑥ 응용과학·전자정보대학관 (two long beige wings + glass west block, pink rooftop plant — aerial ⑥, panorama 01 right)
  const beigeT={wall:'#d3cab9',band:'rgba(150,136,118,.55)',frame:'#6b5a4a',glassT:'#7a8b98',glassM:'#3f4d58',glassB:'#27313a',cope:0xdedad2,unitCol:0xc99490};
  blk('ejF',-188,335,78,18,22,Object.assign({floors:6,bays:24,style:'punch',wf:.6,hf:.56,seed:61,y:2,units:4,lobby:true,door:true},beigeT));
  blk('ejR',-196,296,66,16,22,Object.assign({floors:6,bays:20,style:'punch',wf:.6,hf:.56,seed:62,y:2,units:3},beigeT));
  blk('ejC',-160,315,14,24,22,Object.assign({floors:6,bays:4,style:'ribbon',seed:63,y:2,units:1},beigeT));
  blk('ejW',-240,312,26,44,26,Object.assign({floors:6,bays:8,style:'ribbon',hf:.62,seed:64,y:2,units:2,glassT:'#8fb3b8',glassM:'#4b7078',glassB:'#2c4448'},beigeT,{wall:'#c9c5bd'}));
- blk('igE',158,136,40,14,18,Object.assign({floors:5,bays:11,style:'ribbon',hf:.48,seed:45,y:0,units:1},pinkT));
  // ---------- 생명과학대학관 (Naver aerial: big two-part block beyond ④ on the south side; grey-beige concrete, flat roofs with plant)
  const greyT={wall:'#d6d2c8',band:'rgba(150,146,136,.5)',frame:'#6c7076',glassT:'#7f93a2',glassM:'#3f505e',glassB:'#26323c',cope:0xdedbd4,unitCol:0xb9b6ae};
  blk('lsA',272,238,58,46,20,Object.assign({floors:5,bays:16,bD:13,style:'punch',wf:.6,hf:.55,seed:91,y:0,units:4,lobby:true,door:true},greyT));
@@ -1296,6 +1298,17 @@ function buildLobby(){let API;
   const tm=R.toneMapping,pc=R.clippingPlanes,pr=R.getRenderTarget(),psm=R.shadowMap.autoUpdate;fl.visible=false;
   try{R.shadowMap.autoUpdate=false;R.toneMapping=THREE.NoToneMapping;R.clippingPlanes=[clipP];R.setRenderTarget(RT);rCam.copy(C);rCam.updateMatrixWorld();R.render(S,rCam);}catch(e){console.warn('refl warm',e);}
   finally{R.setRenderTarget(pr);R.clippingPlanes=pc;R.toneMapping=tm;R.shadowMap.autoUpdate=psm;fl.visible=true;fc.forEach(o=>o.frustumCulled=true);rfN=0;lastV.identity().elements[0]=2;}}
+ // P1 (user 2026-11-04): the two 1F reading rooms (제1열람실 x<-30.5, 벗터 x>30.5) sit behind solid walls; draw them only when the camera is inside
+ // or one of their wall openings (found by ray scan) is in view (boxes also cover the floor-reflection mirror below y=0). Nothing new is loaded.
+ let RC=null;const rcF=new THREE.Frustum(),rcM=new THREE.Matrix4();
+ function roomCull(){if(!RC){RC=[];const B=new THREE.Box3(),bb=new THREE.Box3(),M=new THREE.Matrix4();S.updateMatrixWorld(true);
+   const box=o=>{B.makeEmpty();o.traverse(q=>{if(!q.isMesh)return;const g=q.geometry;if(!g.boundingBox)g.computeBoundingBox();if(q.isInstancedMesh){for(let i=0;i<q.count;i++){q.getMatrixAt(i,M);bb.copy(g.boundingBox).applyMatrix4(M).applyMatrix4(q.matrixWorld);B.union(bb);}}else{bb.copy(g.boundingBox).applyMatrix4(q.matrixWorld);B.union(bb);}});};
+   [{s:-1,P:[[6.6,9.4,2.8],[-3.6,-1.2,8.6],[-.1,.5,10.5]]},{s:1,P:[[6.6,9.4,2.8],[-2.4,.4,2.8],[-3.6,-1.2,8.6],[-.1,.5,10.5]]}].forEach(d=>{const g=new THREE.Group(),mv=[];
+    S.children.forEach(c=>{let L=false;c.traverse(q=>{if(q.isLight||q.isCamera||q.isSprite||q.isPoints)L=true;});if(L||c.userData.noBake)return;box(c);if(B.isEmpty())return;if((d.s<0?B.max.x<=-30.4:B.min.x>=30.4)&&B.min.y>-.6&&B.max.y<6.5)mv.push(c);});
+    mv.forEach(c=>{S.remove(c);g.add(c);});S.add(g);d.g=g;d.n=mv.length;
+    d.b=d.P.map(([z0,z1,y1])=>new THREE.Box3(new THREE.Vector3(d.s<0?-31.4:29.6,-y1,z0),new THREE.Vector3(d.s<0?-29.6:31.4,y1,z1)));RC.push(d);});window.ROOMCULL=RC;}
+  rcM.multiplyMatrices(C.projectionMatrix,C.matrixWorldInverse);rcF.setFromProjectionMatrix(rcM);
+  for(const d of RC)d.g.visible=!!window.NOCULL||d.s*pos.x>30.1||d.b.some(b=>rcF.intersectsBox(b));}
  function renderFloor(){if(!inside&&pos.z>21)return;if(lvl<0||pos.y<-1.2)return;if(Math.abs(pos.x)>30.6)return;rfN++;if(lastV.equals(C.matrixWorld)&&rfN%8)return;if(LOWQ&&(rfN&1))return;lastV.copy(C.matrixWorld);rCam.copy(C);rCam.position.set(C.position.x,-C.position.y,C.position.z);C.getWorldDirection(tv);tv.y=-tv.y;rCam.up.set(0,1,0);rCam.lookAt(rCam.position.clone().add(tv));rCam.updateMatrixWorld();rCam.matrixWorldInverse.copy(rCam.matrixWorld).invert();
   rMat.set(.5,0,0,.5,0,.5,0,.5,0,0,.5,.5,0,0,0,1).multiply(rCam.projectionMatrix).multiply(rCam.matrixWorldInverse);
   fl.visible=false;wfG.visible=false;markers.forEach(m=>{m.userData.v=m.visible;m.visible=false;});const tm=R.toneMapping,pc=R.clippingPlanes;R.toneMapping=THREE.NoToneMapping;R.clippingPlanes=[clipP];sky.mesh.position.copy(rCam.position);R.setRenderTarget(RT);R.render(S,rCam);R.setRenderTarget(null);R.clippingPlanes=pc;R.toneMapping=tm;fl.visible=true;wfG.visible=true;markers.forEach(m=>m.visible=m.userData.v);sky.mesh.position.copy(C.position);}
@@ -3264,7 +3277,7 @@ function buildLobby(){let API;
  WFP.innerHTML='<button class="x" aria-label="닫기">×</button><h2>어디로 갈까요?</h2><p class="note"><b>열람실</b>은 공부 좌석이 있는 곳이에요 (1층 제1열람실·벗터열람실, 2층 혜윰열람실·제2열람실).<br><b>자료열람실</b>은 책을 보고 대출·반납하는 곳이에요 (지하 1층).</p>'+['1층','2층','지하 1층'].map(f=>`<h3>${f}</h3><div class="g">${FAC.map((F,i)=>F.f===f?`<button data-i="${i}">${F.n}</button>`:'').join('')}</div>`).join('');
  const WFR=document.createElement('div');WFR.id='wfr';WFR.hidden=true;WFR.innerHTML='<button class="x" aria-label="경로 지우기">×</button><b></b><span></span><div class="a"><button class="pri" data-a="go">따라 걷기</button><button data-a="self">직접 걸어가기</button><button class="pri" data-a="done" hidden>확인</button><button data-a="other">다른 시설</button><button class="stop" data-a="stop" hidden>■ 따라 걷기 멈추기</button></div>';
  const WFN=WFR.querySelector('b'),WFI=WFR.querySelector('span');const PN=document.getElementById('panel');PN.appendChild(WFP);PN.appendChild(WFR);
- const wfShow=on=>{WFP.hidden=!on;PN.classList.toggle('wfon',on||!WFR.hidden);};
+ const wfShow=on=>{WFP.hidden=!on;PN.classList.toggle('wfon',on||!WFR.hidden);/* user 2026-11-03: the map folds while the finder is open and comes back as it was */try{if(on){if(window.WF_MAPKEEP===undefined)window.WF_MAPKEEP=mapOpen;mapOpen=false;renderMap();}else if(window.WF_MAPKEEP!==undefined){mapOpen=window.WF_MAPKEEP;window.WF_MAPKEEP=undefined;renderMap();}}catch(e){}};
  WFB.onclick=()=>{if(anim)return;wfShow(true);};WFP.querySelector('.x').onclick=()=>wfShow(false);
  WFP.querySelectorAll('.g button').forEach(b=>b.onclick=()=>{wfShow(false);wfDraw(FAC[+b.dataset.i]);wfMode(false);PN.classList.add('wfon');});
  // card while walking: only '멈추기' (and ×); after a stop the card goes back to its choices with the route redrawn from where you stand
@@ -3283,14 +3296,15 @@ function buildLobby(){let API;
  WFR.querySelector('.x').onclick=()=>{if(wfState==='arrived'){wfClose();return;}wfStop('clear');};
  WFR.querySelector('[data-a=other]').onclick=()=>wfShow(true);
  // walk it yourself (user 2026-10-29): the blue route stays on the floor, free walk takes over; reaching the ring says you're there
- WFR.querySelector('[data-a=self]').onclick=()=>{if(!wfSel||anim)return;WFR.hidden=true;PN.classList.remove('wfon');setFree(true);window.WFSELF=true;HINT.textContent='바닥의 파란 길을 따라 직접 걸어가 보세요';say(`파란 길을 따라 ${wfSel.n}까지 직접 걸어가 보세요. 도착하면 알려 드릴게요.`);};
- setInterval(()=>{if(typeof FREE==='undefined'||!FREE||!window.WFSELF||wfWalking||!wfDest||!wfSel||active!==API)return;const r=wfDest.position;if(Math.hypot(pos.x-r.x,pos.z-r.z)<1.8&&Math.abs(pos.y-EY-r.y)<1.2){const F=wfSel;say(F.t||`${F.n}에 도착했어요.`);wfClear();HINT.textContent=FREE_HINT;}},250);
+ WFR.querySelector('[data-a=self]').onclick=()=>{if(!wfSel||anim)return;WFR.hidden=true;PN.classList.remove('wfon');setFree(true);window.WFSELF=true;HINT.textContent='바닥의 파란 길을 따라 직접 걸어가 보세요';say(`파란 길을 따라 ${wfSel.n}까지 직접 걸어가 보세요. 도착하면 알려 드릴게요.`);FRB.textContent='안내 종료';};
+ window.WFEND=()=>{const n=wfSel&&wfSel.n;wfClear();HINT.textContent=FREE_HINT;FRB.textContent='자유 이동 끝내기';say(n?`${n} 길 안내를 끝냈어요. 이 자리에서 계속 둘러볼 수 있어요.`:'길 안내를 끝냈어요.');};
+ setInterval(()=>{if(typeof FREE==='undefined'||!FREE||!window.WFSELF||wfWalking||!wfDest||!wfSel||active!==API)return;const r=wfDest.position;if(Math.hypot(pos.x-r.x,pos.z-r.z)<1.8&&Math.abs(pos.y-EY-r.y)<1.2){const F=wfSel;say(F.t||`${F.n}에 도착했어요.`);wfClear();HINT.textContent=FREE_HINT;FRB.textContent='자유 이동 끝내기';}},250);
  WFR.querySelector('[data-a=go]').onclick=()=>{const F=wfSel;if(!F||anim||pend)return;pushHist();tour=-1;window.WFWALK=true;wfStopReq=null;wfMode(true);{const sb=WFR.querySelector('[data-a=stop]');sb.disabled=false;sb.textContent='■ 따라 걷기 멈추기';}
  // the gated reading rooms: walk through the opening gate and door into the room (user 2026-10-29)
  const RN={'제1열람실':'제1열람실 안','벗터열람실':'벗터 안','혜윰열람실':'혜윰열람실 안','제2열람실':'제2열람실 안'},k=RN[F.n]?spots.findIndex(q=>q.n===RN[F.n]):-1;if(k>=0){wfShow(false);inside=true;goSpot(k);return;}
  const gF=()=>{walkTo(V(...F.to),F.lv,F.in?undefined:F.h,F.pi,F.in?null:F.t);if(F.in)anim.done=()=>walkPts(F.in.map(p=>V(...p)),F.lv,F.h,F.pi,F.t);};
  if(Math.abs(pos.x)>30.6&&pos.y>0){inside=true;roomOut(gF);return;}gF();inside=true;};
- setInterval(()=>{const on=typeof active!=='undefined'&&active===API&&!MAPV.on;WFB.style.display=on?'':'none';if(!on){if(!WFP.hidden)WFP.hidden=true;if(!WFR.hidden){wfClear();}PN.classList.remove('wfon');}},300);
+ setInterval(()=>{const on=typeof active!=='undefined'&&active===API&&!MAPV.on;WFB.style.display=on?'':'none';if(!on){if(!WFP.hidden)wfShow(false);if(!WFR.hidden){wfClear();}PN.classList.remove('wfon');}},300);
  const markers=[];const ringG=new THREE.RingGeometry(.55,.85,48);const ringM=new THREE.MeshBasicMaterial({color:0xffe9b8,transparent:true,opacity:.75,side:THREE.DoubleSide,depthWrite:false,fog:false,toneMapped:false});
  spots.forEach((s,i)=>{const r=new THREE.Mesh(ringG,ringM);r.rotation.x=-Math.PI/2;r.position.set(s.m[0],s.m[1]+.03,s.m[2]);r.userData.i=i;S.add(r);markers.push(r);
   const lt=textTex(512,96,(g,W,H)=>{g.clearRect(0,0,W,H);g.font='700 38px "Noto Sans KR","Gowun Batang",sans-serif';const tw=Math.min(W-10,g.measureText(s.n).width+48);g.fillStyle='rgba(255,255,255,.94)';const x0=(W-tw)/2;g.beginPath();g.moveTo(x0+30,8);g.arcTo(x0+tw,8,x0+tw,H-8,36);g.arcTo(x0+tw,H-8,x0,H-8,36);g.arcTo(x0,H-8,x0,8,36);g.arcTo(x0,8,x0+tw,8,36);g.fill();g.fillStyle='#202124';g.textAlign='center';g.textBaseline='middle';g.fillText(s.n,W/2,H/2+2);});
@@ -3431,6 +3445,8 @@ function buildLobby(){let API;
   jump(i){if(anim)return;if(!inside){fadeDo(()=>{inside=true;pos.set(0,EY,17.6);head=0;pitch=.1;yaw=pyaw=0;goSpot(i);});return;}goSpot(i);},
   // from the zone map: straight there behind a short fade, no walk (user, 2026-10-29)
   tp(i){const s=spots[i];if(!s)return;fadeDo(()=>{anim=null;spin=null;tour=i;setBtn(i===spots.length-1?'처음으로':'다음 장소');yaw=pyaw=0;lvl=s.lv;inside=true;pos.set(...s.v);head=s.h;pitch=s.pi;say(s.t);if(typeof FREE!=='undefined'&&FREE&&typeof lastP!=='undefined'){freeG=pos.y-1.7;lastP.copy(pos);lastPoi=null;}if(typeof renderMap==='function')renderMap();});},
+  // leaving free mode: go to the closest stop on this floor, not back to the first one (user 2026-11-04)
+  near(){if(!inside)return undefined;let b=0,bd=1e9;spots.forEach((s,i)=>{const d=Math.hypot(s.v[0]-pos.x,s.v[2]-pos.z)+Math.abs(s.v[1]-pos.y)*20;if(d<bd){bd=d;b=i;}});return b;},
   where(){return inside?tour:undefined;},busy(){return !!anim||!!spin||pend||hChase.v!==null||!!(FD&&+FD.style.opacity>.05);},cam(x,y,z,h,p){anim=null;spin=null;inside=true;tour=-1;pos.set(x,y,z);head=h;pitch=p;yaw=pyaw=0;hush();},
   pos,hd(){return head+yaw;},turn(d){yaw+=d;},halt(){anim=null;},spots(){return spots.map(s=>({x:s.v[0],y:s.v[1],z:s.v[2],t:s.t}));},free:lbFree,
   enter(k){anim=null;yaw=pyaw=0;if(k===undefined||k<0||!spots[k]){pos.set(0,EY,19.2);head=0;pitch=.1;lvl=0;inside=true;tour=0;say(spots[0].t);setBtn('다음 장소');spin={t0:performance.now()+400};return;}spin=null;const s=spots[k];inside=true;tour=k;lvl=s.lv;pos.set(...s.v);head=s.h;pitch=s.pi;say(s.t);setBtn(k===spots.length-1?'처음으로':'다음 장소');},
@@ -3465,7 +3481,7 @@ function buildLobby(){let API;
     if(!reduce&&(_wa||hChase.v!==null)){const tg=_wa?head:hChase.v;let d=Math.atan2(Math.sin(tg-_h0),Math.cos(tg-_h0));const lim=(window.TOUR&&TOUR.on?.9:window.WFWALK?2.2:1.4)*dt;if(Math.abs(d)>lim){head=_h0+Math.sign(d)*lim;hChase.v=tg;}else{head=tg;hChase.v=null;}}else hChase.v=null;}
    BUT.tick(now,pos);if(S.userData.b1d){const dt=Math.min(.1,(now-(S.userData.b1t||now))/1000);S.userData.b1t=now;S.userData.b1d.forEach(f=>f(dt,pos));}
    {const w=Math.abs(pos.x)>30.6&&pos.y>0;if(w!==!!C.userData.wide){C.userData.wide=w;applyFov(C);if(w){C.fov=Math.min(84,C.fov*1.3);C.updateProjectionMatrix();}}}// a wider view inside 벗터 (one spot, whole room)
-   const h=head+yaw,p=pitch+pyaw;C.position.copy(pos);C.lookAt(pos.x+Math.sin(h),pos.y+p,pos.z-Math.cos(h));C.updateMatrixWorld();renderFloor();}};
+   const h=head+yaw,p=pitch+pyaw;C.position.copy(pos);C.lookAt(pos.x+Math.sin(h),pos.y+p,pos.z-Math.cos(h));C.updateMatrixWorld();roomCull();renderFloor();}};
 }
 
 // ============ walk collision + route finding from the scene itself (user, 2026-10-29) ============
@@ -3709,8 +3725,8 @@ let touchSeen=false;const touchUI=()=>touchSeen||matchMedia('(pointer: coarse)')
 addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!touchSeen){touchSeen=true;if(FREE)JOY.style.display='block';}},true);
 const FREE_HINT=matchMedia('(pointer:coarse)').matches?'왼쪽 아래 조이스틱으로 걷기 · 화면 드래그로 둘러보기':'W·A·S·D / 방향키로 걷기 · Shift 달리기 · 드래그로 둘러보기';
 function setFree(on){if(!active)return;FREE=on;if(!on)window.WFSELF=false;restoreView();FRB.textContent=on?'🧭 안내 투어':'🚶 자유 이동';NB.style.display=on?'none':'';JOY.style.display=on&&touchUI()?'block':'none';HINT.textContent=on?FREE_HINT:active.hint;
- if(on){active.halt();hush();lastPoi=null;freeG=active.pos.y-1.7;lastP.copy(active.pos);}else{for(const k in keys)keys[k]=false;jx=jy=0;fadeDo(()=>active.enter(active.where()));}}
-FRB.onclick=()=>{if(!switching)setFree(!FREE);};
+ if(on){active.halt();hush();lastPoi=null;freeG=active.pos.y-1.7;lastP.copy(active.pos);}else{for(const k in keys)keys[k]=false;jx=jy=0;fadeDo(()=>active.enter(active.near?active.near():active.where()));}}
+FRB.onclick=()=>{if(switching)return;if(FREE&&window.WFSELF&&window.WFEND){WFEND();return;}setFree(!FREE);};
 
 // ---- map view: the zone is looked at like a map app. one finger drags the map, pinch / wheel zooms, two-finger twist rotates,
 // two fingers up/down tilt; zooming all the way in settles at eye height. place names float over the 3D scene; tapping one opens a card
@@ -3848,6 +3864,17 @@ let fPrev=0;function freeStep(now){const dt=Math.min(.05,fPrev?(now-fPrev)/1000:
  let best=null,bd=1e9;active.spots().forEach(s=>{const d=Math.hypot(s.x-P.x,s.z-P.z);if(d<bd&&Math.abs((s.y-1.7)-freeG)<2.5){bd=d;best=s;}});
  if(window.WFSELF&&wfLive()){}else if(best&&bd<9){if(lastPoi!==best.t){lastPoi=best.t;say(best.t);}}else if(lastPoi){lastPoi=null;hush();}}
 TM.onclick=()=>{MODE=MODE===2?0:2;if(active&&active.hasMode)active.setMode(MODE);modeLabel();};
+// user 2026-11-03: hand-written hint pointing at the ☾ 밤 button on the map view; gone for good after the first press (H1=B with a plain arrow, H2=가)
+(()=>{let seen=false;try{seen=localStorage.getItem('khuNightHint')==='1';}catch(e){}if(seen)return;
+ const H=document.createElement('div');H.id='nhint';H.setAttribute('aria-hidden','true');
+ H.innerHTML='<svg viewBox="0 0 110 84" width="110" height="84"><path d="M96,80 C94,46 16,52 16,6"/><path d="M7,17 L16,5 L25,17"/></svg><span>클릭해 보세요!</span>';
+ document.body.appendChild(H);let done=false;
+ const kill=()=>{done=true;H.remove();try{localStorage.setItem('khuNightHint','1');}catch(e){}};
+ TM.addEventListener('click',kill);
+ const tick=()=>{if(done)return;const on=typeof MAPV!=='undefined'&&MAPV.on&&!switching&&getComputedStyle(TM).display!=='none'&&!(window.TOUR&&TOUR.on)&&!document.getElementById('loading');
+  if(on){const r=TM.getBoundingClientRect();const k=(H.querySelector('svg').getBoundingClientRect().width||110)/110;H.style.left=(r.left+r.width*.5-16*k)+'px';H.style.top=(r.bottom+3-5*k)+'px';}H.style.display=on?'block':'none';};
+ setInterval(tick,250);tick();})();
+
 const FS=document.getElementById('fs');if(!document.fullscreenEnabled&&!document.webkitFullscreenEnabled)FS.style.display='none';
 FS.onclick=()=>{try{const d=document,el=d.documentElement;if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d);else{const r=(el.requestFullscreen||el.webkitRequestFullscreen).call(el);if(r&&r.catch)r.catch(()=>{});}}catch(e){FS.style.display='none';}};
 document.addEventListener('fullscreenchange',()=>{FS.textContent=document.fullscreenElement?'전체 화면 닫기':'전체 화면';});
